@@ -5,15 +5,24 @@
   
 
   
-  <title>阳神NB</title>
+  <title>mysql主从同步实践 | 阳神NB</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="阳神NB">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="主从同步原理binlog用于记录用户操作数据库的sql语句。主从同步环境中，主库与从库建立通信将主库的binlog发送给从库。从库将binlog解析为relaylog后，在从库执行sql语句。 操作步骤：主库配置1、配置my.cnf，开启binlog 1234567server_id &#x3D; 1                #唯一标识，主库从库不能重复log_bin &#x3D; mysql-bin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql主从同步实践">
+<meta property="og:url" content="http://yoursite.com/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/index.html">
 <meta property="og:site_name" content="阳神NB">
+<meta property="og:description" content="主从同步原理binlog用于记录用户操作数据库的sql语句。主从同步环境中，主库与从库建立通信将主库的binlog发送给从库。从库将binlog解析为relaylog后，在从库执行sql语句。 操作步骤：主库配置1、配置my.cnf，开启binlog 1234567server_id &#x3D; 1                #唯一标识，主库从库不能重复log_bin &#x3D; mysql-bin">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508174850651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508175826961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508180250298.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508180714379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-05-09T08:37:00.807Z">
+<meta property="article:modified_time" content="2020-05-09T08:37:00.851Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200508174850651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
   
     <link rel="alternate" href="/atom.xml" title="阳神NB" type="application/atom+xml">
   
@@ -62,9 +71,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-mysql主从同步实践" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-mysql主从同步实践" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/" class="article-date">
   <time datetime="2020-05-09T08:37:00.807Z" itemprop="datePublished">2020-05-09</time>
@@ -77,8 +84,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/">mysql主从同步实践</a>
+    <h1 class="article-title" itemprop="name">
+      mysql主从同步实践
     </h1>
   
 
@@ -111,49 +118,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-xxxxs adas dsad s d ad s as" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" class="article-date">
-  <time datetime="2020-03-31T03:37:19.601Z" itemprop="datePublished">2020-03-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/">xxxxs adas dsad s d ad s as</a>
-    </h1>
+    <a href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">xxxxs adas dsad s d ad s as</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>xxxxs adas dsad s d ad s as </p>
-<p>YSNB</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" data-id="ck9zdl99r0001afo5ezkj6gov" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
