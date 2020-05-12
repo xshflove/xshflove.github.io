@@ -7,19 +7,21 @@
   
   
   
-  <title>xxxxs adas dsad s d ad s as | 海安养猪场</title>
+  <title>springboot整合ldap实现AD域认证 | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="xxxxs adas dsad s d ad s as  YSNB">
+  <meta name="description" content="springboot整合ldap实现AD域认证这里以distinguishedName:CN&#x3D;service_leave,OU&#x3D;Service,OU&#x3D;SysAuth,DC&#x3D;al,DC&#x3D;com对应的条目为例 步骤1、引入maven1234&lt;dependency&gt;            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;gro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xxxxs adas dsad s d ad s as">
-<meta property="og:url" content="http://yoursite.com/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/index.html">
+<meta property="og:title" content="springboot整合ldap实现AD域认证">
+<meta property="og:url" content="http://yoursite.com/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/index.html">
 <meta property="og:site_name" content="海安养猪场">
-<meta property="og:description" content="xxxxs adas dsad s d ad s as  YSNB">
+<meta property="og:description" content="springboot整合ldap实现AD域认证这里以distinguishedName:CN&#x3D;service_leave,OU&#x3D;Service,OU&#x3D;SysAuth,DC&#x3D;al,DC&#x3D;com对应的条目为例 步骤1、引入maven1234&lt;dependency&gt;            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;gro">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-31T03:37:19.601Z">
-<meta property="article:modified_time" content="2020-05-11T09:02:11.121Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191105182837355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-05-12T08:39:32.711Z">
+<meta property="article:modified_time" content="2020-05-12T08:39:32.747Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20191105182837355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -232,11 +234,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-xxxxs adas dsad s d ad s as" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-springboot整合ldap实现AD域认证" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" class="article-date">
-      <time datetime="2020-03-31T03:37:19.601Z" itemprop="datePublished">2020-03-31</time>
+      <a  href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/" class="article-date">
+      <time datetime="2020-05-12T08:39:32.711Z" itemprop="datePublished">2020-05-12</time>
 </a>
 
     </div>
@@ -250,7 +252,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      xxxxs adas dsad s d ad s as
+      springboot整合ldap实现AD域认证
     </h1>
   
 
@@ -268,8 +270,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>xxxxs adas dsad s d ad s as </p>
-<p>YSNB</p>
+        <h1 id="springboot整合ldap实现AD域认证"><a href="#springboot整合ldap实现AD域认证" class="headerlink" title="springboot整合ldap实现AD域认证"></a>springboot整合ldap实现AD域认证</h1><p>这里以<br>distinguishedName:<br>CN=service_leave,OU=Service,OU=SysAuth,DC=al,DC=com对应的条目为例</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1、引入maven"><a href="#1、引入maven" class="headerlink" title="1、引入maven"></a>1、引入maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-data-ldap&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2、配置yml"><a href="#2、配置yml" class="headerlink" title="2、配置yml"></a>2、配置yml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  ##AD认证</span><br><span class="line">  ldap:</span><br><span class="line">  ##AD服务器IP，默认端口389</span><br><span class="line">    urls: ldap:&#x2F;&#x2F;1.1.1.1:389</span><br><span class="line">   ##登录账号</span><br><span class="line">    username: service</span><br><span class="line">   ##密码</span><br><span class="line">    password: labjB57uc734</span><br><span class="line">   #distinguishedName的部分节点</span><br><span class="line">    base: OU&#x3D;Service,OU&#x3D;SysAuth,DC&#x3D;al,DC&#x3D;com</span><br></pre></td></tr></table></figure>
+<h3 id="3、配置config"><a href="#3、配置config" class="headerlink" title="3、配置config"></a>3、配置config</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class LdapConfig &#123;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.urls&#125;&quot;)</span><br><span class="line">    private String ldapUrl;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.username&#125;&quot;)</span><br><span class="line">    private String userName;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.password&#125;&quot;)</span><br><span class="line">    private String passWord;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.base&#125;&quot;)</span><br><span class="line">    private String base;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public LdapContextSource ldapContextSource()&#123;</span><br><span class="line">        LdapContextSource source &#x3D; new LdapContextSource();</span><br><span class="line">        source.setBase(base);</span><br><span class="line">        source.setUrl(ldapUrl);</span><br><span class="line">        source.setPassword(passWord);</span><br><span class="line">        source.setUserDn(userName);</span><br><span class="line">        return source;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public LdapTemplate ldapTemplate()&#123;</span><br><span class="line">        return new LdapTemplate(ldapContextSource());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4、编写service、serviceImpl"><a href="#4、编写service、serviceImpl" class="headerlink" title="4、编写service、serviceImpl"></a>4、编写service、serviceImpl</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface LdapService &#123;</span><br><span class="line"></span><br><span class="line">    boolean ldapAuth(String username, String passWord);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class LdapServiceImpl implements LdapService &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private LdapTemplate ldapTemplate;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean ldapAuth(String username, String passWord) &#123;</span><br><span class="line">        EqualsFilter filter &#x3D; new EqualsFilter(&quot;sAMAccountName&quot;,username);</span><br><span class="line">        return ldapTemplate.authenticate(&quot;&quot;,filter.toString(),passWord);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sAMAccountName是ladp中记录的一个属性</p>
+<h3 id="5、编写测试用例"><a href="#5、编写测试用例" class="headerlink" title="5、编写测试用例"></a>5、编写测试用例</h3><p><img src="https://img-blog.csdnimg.cn/20191105182837355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -278,13 +287,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/">xxxxs adas dsad s d ad s as</a></p>
+        <p><span>本文标题:</span><a  href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/">springboot整合ldap实现AD域认证</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
-        <p><span>发布时间:</span>2020年03月31日 - 11时37分</p>
-        <p><span>最后更新:</span>2020年05月11日 - 17时02分</p>
+        <p><span>发布时间:</span>2020年05月12日 - 16时39分</p>
+        <p><span>最后更新:</span>2020年05月12日 - 16时39分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" title="xxxxs adas dsad s d ad s as">http://yoursite.com/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/　　作者: Mr.xu" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/" title="springboot整合ldap实现AD域认证">http://yoursite.com/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/　　作者: Mr.xu" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -295,15 +304,20 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a  href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          mysql主从同步实践
+          nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）
         
       </div>
     </a>
   
+  
+    <a  href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql主从同步实践</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -313,7 +327,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#springboot整合ldap实现AD域认证"><span class="toc-number">1.</span> <span class="toc-text">springboot整合ldap实现AD域认证</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤"><span class="toc-number">1.1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、引入maven"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、引入maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、配置yml"><span class="toc-number">1.1.2.</span> <span class="toc-text">2、配置yml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、配置config"><span class="toc-number">1.1.3.</span> <span class="toc-text">3、配置config</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、编写service、serviceImpl"><span class="toc-number">1.1.4.</span> <span class="toc-text">4、编写service、serviceImpl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、编写测试用例"><span class="toc-number">1.1.5.</span> <span class="toc-text">5、编写测试用例</span></a></li></ol></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -386,13 +400,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/" title="上一篇: mysql主从同步实践">
+            <a  href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/" title="上一篇: nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a  href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/" title="下一篇: mysql主从同步实践">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
     <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/">wait()、notify()多线程交替输出</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/">Mysql函数group_concat、find_in_set进行数据库字段值翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/">nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/">springboot整合ldap实现AD域认证</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/">mysql主从同步实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/">xxxxs adas dsad s d ad s as</a></li></ul>

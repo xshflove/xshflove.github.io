@@ -7,19 +7,23 @@
   
   
   
-  <title>xxxxs adas dsad s d ad s as | 海安养猪场</title>
+  <title>Mysql函数group_concat、find_in_set进行数据库字段值翻译 | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="xxxxs adas dsad s d ad s as  YSNB">
+  <meta name="description" content="场景配方表：记录包含的原料sources表示原料，字段值之间用逗号分隔原料表：对应原料id和原料名称 现需要查询出的原料结果显示为原料名称，并以逗号分隔。可通过函数group_concat、find_in_set实现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xxxxs adas dsad s d ad s as">
-<meta property="og:url" content="http://yoursite.com/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/index.html">
+<meta property="og:title" content="Mysql函数group_concat、find_in_set进行数据库字段值翻译">
+<meta property="og:url" content="http://yoursite.com/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/index.html">
 <meta property="og:site_name" content="海安养猪场">
-<meta property="og:description" content="xxxxs adas dsad s d ad s as  YSNB">
+<meta property="og:description" content="场景配方表：记录包含的原料sources表示原料，字段值之间用逗号分隔原料表：对应原料id和原料名称 现需要查询出的原料结果显示为原料名称，并以逗号分隔。可通过函数group_concat、find_in_set实现">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-31T03:37:19.601Z">
-<meta property="article:modified_time" content="2020-05-11T09:02:11.121Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200302162456438.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020030216290333.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200302163100692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-05-12T08:39:38.455Z">
+<meta property="article:modified_time" content="2020-05-12T08:39:38.492Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200302162456438.png">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -232,11 +236,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-xxxxs adas dsad s d ad s as" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Mysql函数group_concat、find_in_set进行数据库字段值翻译" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" class="article-date">
-      <time datetime="2020-03-31T03:37:19.601Z" itemprop="datePublished">2020-03-31</time>
+      <a  href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/" class="article-date">
+      <time datetime="2020-05-12T08:39:38.455Z" itemprop="datePublished">2020-05-12</time>
 </a>
 
     </div>
@@ -250,7 +254,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      xxxxs adas dsad s d ad s as
+      Mysql函数group_concat、find_in_set进行数据库字段值翻译
     </h1>
   
 
@@ -268,8 +272,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>xxxxs adas dsad s d ad s as </p>
-<p>YSNB</p>
+        <h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>配方表：记录包含的原料<br>sources表示原料，字段值之间用逗号分隔<br><img src="https://img-blog.csdnimg.cn/20200302162456438.png" alt="在这里插入图片描述"><br>原料表：对应原料id和原料名称<br><img src="https://img-blog.csdnimg.cn/2020030216290333.png" alt="在这里插入图片描述"></p>
+<p>现需要查询出的原料结果显示为原料名称，并以逗号分隔。可通过函数group_concat、find_in_set实现<br><img src="https://img-blog.csdnimg.cn/20200302163100692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -278,13 +282,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/">xxxxs adas dsad s d ad s as</a></p>
+        <p><span>本文标题:</span><a  href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/">Mysql函数group_concat、find_in_set进行数据库字段值翻译</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
-        <p><span>发布时间:</span>2020年03月31日 - 11时37分</p>
-        <p><span>最后更新:</span>2020年05月11日 - 17时02分</p>
+        <p><span>发布时间:</span>2020年05月12日 - 16时39分</p>
+        <p><span>最后更新:</span>2020年05月12日 - 16时39分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" title="xxxxs adas dsad s d ad s as">http://yoursite.com/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/　　作者: Mr.xu" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/" title="Mysql函数group_concat、find_in_set进行数据库字段值翻译">http://yoursite.com/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/　　作者: Mr.xu" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -295,15 +299,20 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a  href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          mysql主从同步实践
+          wait()、notify()多线程交替输出
         
       </div>
     </a>
   
+  
+    <a  href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -313,7 +322,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#场景"><span class="toc-number">1.</span> <span class="toc-text">场景</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -386,13 +395,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/" title="上一篇: mysql主从同步实践">
+            <a  href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/" title="上一篇: wait()、notify()多线程交替输出">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a  href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/" title="下一篇: nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
     <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/">wait()、notify()多线程交替输出</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/">Mysql函数group_concat、find_in_set进行数据库字段值翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/">nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/">springboot整合ldap实现AD域认证</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/">mysql主从同步实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/">xxxxs adas dsad s d ad s as</a></li></ul>

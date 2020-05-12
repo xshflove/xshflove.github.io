@@ -233,6 +233,249 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-wait()、notify()多线程交替输出" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/" class="article-date">
+      <time datetime="2020-05-12T08:39:43.788Z" itemprop="datePublished">2020-05-12</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/">wait()、notify()多线程交替输出</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>在线程获取到锁对象后，执行锁对象的wait()。当前线程将释放锁并加入锁对象的等待队列，其他线程调用锁对象的notify()、notifyAll(),则将之前加到等待队列的线程改变到锁对象的就绪队列中。等到CPU轮转到这个线程，就继续执行输出。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Object o = <span class="keyword">new</span> Object();</span><br><span class="line">         Thread threadA = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">50</span> ;i++)&#123;</span><br><span class="line">                    <span class="keyword">synchronized</span> (o)&#123;</span><br><span class="line">                     System.out.println(Thread.currentThread().getName()+<span class="string">"线程一"</span>+i);</span><br><span class="line">                         o.notify();</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            o.wait();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;&#125;);</span><br><span class="line"></span><br><span class="line">         Thread threadB = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;<span class="number">50</span> ;j++)&#123;</span><br><span class="line">                     <span class="keyword">synchronized</span> (o)&#123;</span><br><span class="line">                     System.out.println(Thread.currentThread().getName()+<span class="string">"线程二"</span>+j);</span><br><span class="line"></span><br><span class="line">                         o.notify();</span><br><span class="line">                         <span class="keyword">try</span> &#123;</span><br><span class="line">                             o.wait();</span><br><span class="line">                         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                             e.printStackTrace();</span><br><span class="line">                         &#125;</span><br><span class="line">                     &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;&#125;);</span><br><span class="line"></span><br><span class="line">         threadA.start();</span><br><span class="line">         Thread.sleep(<span class="number">100</span>);</span><br><span class="line">         threadB.start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Mysql函数group_concat、find_in_set进行数据库字段值翻译" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/" class="article-date">
+      <time datetime="2020-05-12T08:39:38.455Z" itemprop="datePublished">2020-05-12</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/">Mysql函数group_concat、find_in_set进行数据库字段值翻译</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>配方表：记录包含的原料<br>sources表示原料，字段值之间用逗号分隔<br><img src="https://img-blog.csdnimg.cn/20200302162456438.png" alt="在这里插入图片描述"><br>原料表：对应原料id和原料名称<br><img src="https://img-blog.csdnimg.cn/2020030216290333.png" alt="在这里插入图片描述"></p>
+<p>现需要查询出的原料结果显示为原料名称，并以逗号分隔。可通过函数group_concat、find_in_set实现<br><img src="https://img-blog.csdnimg.cn/20200302163100692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/" class="article-date">
+      <time datetime="2020-05-12T08:39:36.146Z" itemprop="datePublished">2020-05-12</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/">nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>接到问题反馈，调用上传图片接口有时成功、有时失败。<br>后台的错误日志提示与传参序列化有关，但这不是直接原因，这里的误导导致查找问题走了很多弯路。<br><img src="https://img-blog.csdnimg.cn/20200508110332328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="xx"><br>前端页面调试时显示错误Request Entity Too Large，这才是问题的关键。<br><img src="https://img-blog.csdnimg.cn/20200508110717314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>nginx默认的bodysize为1M，请求超过此大小便失败。<br>在nginx配置文件补上client_max_body_size ,重启nginx解决<br><img src="https://img-blog.csdnimg.cn/20200508111037631.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-springboot整合ldap实现AD域认证" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/" class="article-date">
+      <time datetime="2020-05-12T08:39:32.711Z" itemprop="datePublished">2020-05-12</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/">springboot整合ldap实现AD域认证</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="springboot整合ldap实现AD域认证"><a href="#springboot整合ldap实现AD域认证" class="headerlink" title="springboot整合ldap实现AD域认证"></a>springboot整合ldap实现AD域认证</h1><p>这里以<br>distinguishedName:<br>CN=service_leave,OU=Service,OU=SysAuth,DC=al,DC=com对应的条目为例</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1、引入maven"><a href="#1、引入maven" class="headerlink" title="1、引入maven"></a>1、引入maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-data-ldap&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2、配置yml"><a href="#2、配置yml" class="headerlink" title="2、配置yml"></a>2、配置yml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  ##AD认证</span><br><span class="line">  ldap:</span><br><span class="line">  ##AD服务器IP，默认端口389</span><br><span class="line">    urls: ldap:&#x2F;&#x2F;1.1.1.1:389</span><br><span class="line">   ##登录账号</span><br><span class="line">    username: service</span><br><span class="line">   ##密码</span><br><span class="line">    password: labjB57uc734</span><br><span class="line">   #distinguishedName的部分节点</span><br><span class="line">    base: OU&#x3D;Service,OU&#x3D;SysAuth,DC&#x3D;al,DC&#x3D;com</span><br></pre></td></tr></table></figure>
+<h3 id="3、配置config"><a href="#3、配置config" class="headerlink" title="3、配置config"></a>3、配置config</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class LdapConfig &#123;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.urls&#125;&quot;)</span><br><span class="line">    private String ldapUrl;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.username&#125;&quot;)</span><br><span class="line">    private String userName;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.password&#125;&quot;)</span><br><span class="line">    private String passWord;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.base&#125;&quot;)</span><br><span class="line">    private String base;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public LdapContextSource ldapContextSource()&#123;</span><br><span class="line">        LdapContextSource source &#x3D; new LdapContextSource();</span><br><span class="line">        source.setBase(base);</span><br><span class="line">        source.setUrl(ldapUrl);</span><br><span class="line">        source.setPassword(passWord);</span><br><span class="line">        source.setUserDn(userName);</span><br><span class="line">        return source;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public LdapTemplate ldapTemplate()&#123;</span><br><span class="line">        return new LdapTemplate(ldapContextSource());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4、编写service、serviceImpl"><a href="#4、编写service、serviceImpl" class="headerlink" title="4、编写service、serviceImpl"></a>4、编写service、serviceImpl</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface LdapService &#123;</span><br><span class="line"></span><br><span class="line">    boolean ldapAuth(String username, String passWord);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class LdapServiceImpl implements LdapService &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private LdapTemplate ldapTemplate;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean ldapAuth(String username, String passWord) &#123;</span><br><span class="line">        EqualsFilter filter &#x3D; new EqualsFilter(&quot;sAMAccountName&quot;,username);</span><br><span class="line">        return ldapTemplate.authenticate(&quot;&quot;,filter.toString(),passWord);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sAMAccountName是ladp中记录的一个属性</p>
+<h3 id="5、编写测试用例"><a href="#5、编写测试用例" class="headerlink" title="5、编写测试用例"></a>5、编写测试用例</h3><p><img src="https://img-blog.csdnimg.cn/20191105182837355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-mysql主从同步实践" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
