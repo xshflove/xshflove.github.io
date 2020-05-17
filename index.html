@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="海安养猪场">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://www.xshf1996.cn/index.html">
 <meta property="og:site_name" content="海安养猪场">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Mr.xu">
@@ -232,6 +232,160 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-多线程（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/05/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
+      <time datetime="2020-05-17T13:02:52.837Z" itemprop="datePublished">2020-05-17</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/05/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/">多线程（一）</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h1><p>线程是进程的一部分，线程本身不会单独存在。进程是操作系统资源分配的基本单位，线程则是资源分配的最小单位。</p>
+<p>线程存在的意义在于提升CPU的运行效率。一个CPU单位时间只能执行一个任务，假如这个任务执行过程中阻塞，那CPU资源就被闲置。因此加入线程，在JVM层面每个线程拥有自己的虚拟机栈与程序计数器。多核CPU下，CPU执行中线程可以被挂起，根据线程的程序计数器又能从上次执行到的地方继续执行。</p>
+<h1 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h1><h2 id="操作系统进程五态"><a href="#操作系统进程五态" class="headerlink" title="操作系统进程五态"></a>操作系统进程五态</h2><p>新建状态NEW:进程被创建时所处的状态。</p>
+<p>就绪状态READY:进程已经具备了可执行条件，等待CPU调度。</p>
+<p>运行状态Running:进程占用CPU正在执行。</p>
+<p>阻塞状态Blocked:进程受到通信或同步操作影响，不得不放弃CPU使用。</p>
+<p>终止状态Terminated:进程运行结束或出现严重错误。收回占用资源。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200517205120442.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>就绪-》运行：CPU分配给某个就绪的进程。</p>
+<p>运行-》阻塞：正在运行中的进程需要等待某些事件的发生。</p>
+<p>运行-》就绪：CPU分配的时间耗尽或其他优先级更高的进程插队</p>
+<h2 id="java线程状态"><a href="#java线程状态" class="headerlink" title="java线程状态"></a>java线程状态</h2><p><img src="https://img-blog.csdnimg.cn/20200517205517407.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">public enum State &#123;</span><br><span class="line">        &#x2F;**</span><br><span class="line">         * Thread state for a thread which has not yet started.</span><br><span class="line">         *&#x2F;</span><br><span class="line">        NEW,</span><br><span class="line"></span><br><span class="line">        &#x2F;**</span><br><span class="line">         * Thread state for a runnable thread.  A thread in the runnable</span><br><span class="line">         * state is executing in the Java virtual machine but it may</span><br><span class="line">         * be waiting for other resources from the operating system</span><br><span class="line">         * such as processor.</span><br><span class="line">         *&#x2F;</span><br><span class="line">        RUNNABLE,</span><br><span class="line"></span><br><span class="line">        &#x2F;**</span><br><span class="line">         * Thread state for a thread blocked waiting for a monitor lock.</span><br><span class="line">         * A thread in the blocked state is waiting for a monitor lock</span><br><span class="line">         * to enter a synchronized block&#x2F;method or</span><br><span class="line">         * reenter a synchronized block&#x2F;method after calling</span><br><span class="line">         * &#123;@link Object#wait() Object.wait&#125;.</span><br><span class="line">         *&#x2F;</span><br><span class="line">        BLOCKED,</span><br><span class="line"></span><br><span class="line">        &#x2F;**</span><br><span class="line">         * Thread state for a waiting thread.</span><br><span class="line">         * A thread is in the waiting state due to calling one of the</span><br><span class="line">         * following methods:</span><br><span class="line">         * &lt;ul&gt;</span><br><span class="line">         *   &lt;li&gt;&#123;@link Object#wait() Object.wait&#125; with no timeout&lt;&#x2F;li&gt;</span><br><span class="line">         *   &lt;li&gt;&#123;@link #join() Thread.join&#125; with no timeout&lt;&#x2F;li&gt;</span><br><span class="line">         *   &lt;li&gt;&#123;@link LockSupport#park() LockSupport.park&#125;&lt;&#x2F;li&gt;</span><br><span class="line">         * &lt;&#x2F;ul&gt;</span><br><span class="line">         *</span><br><span class="line">         * &lt;p&gt;A thread in the waiting state is waiting for another thread to</span><br><span class="line">         * perform a particular action.</span><br><span class="line">         *</span><br><span class="line">         * For example, a thread that has called &lt;tt&gt;Object.wait()&lt;&#x2F;tt&gt;</span><br><span class="line">         * on an object is waiting for another thread to call</span><br><span class="line">         * &lt;tt&gt;Object.notify()&lt;&#x2F;tt&gt; or &lt;tt&gt;Object.notifyAll()&lt;&#x2F;tt&gt; on</span><br><span class="line">         * that object. A thread that has called &lt;tt&gt;Thread.join()&lt;&#x2F;tt&gt;</span><br><span class="line">         * is waiting for a specified thread to terminate.</span><br><span class="line">         *&#x2F;</span><br><span class="line">        WAITING,</span><br><span class="line"></span><br><span class="line">        &#x2F;**</span><br><span class="line">         * Thread state for a waiting thread with a specified waiting time.</span><br><span class="line">         * A thread is in the timed waiting state due to calling one of</span><br><span class="line">         * the following methods with a specified positive waiting time:</span><br><span class="line">         * &lt;ul&gt;</span><br><span class="line">         *   &lt;li&gt;&#123;@link #sleep Thread.sleep&#125;&lt;&#x2F;li&gt;</span><br><span class="line">         *   &lt;li&gt;&#123;@link Object#wait(long) Object.wait&#125; with timeout&lt;&#x2F;li&gt;</span><br><span class="line">         *   &lt;li&gt;&#123;@link #join(long) Thread.join&#125; with timeout&lt;&#x2F;li&gt;</span><br><span class="line">         *   &lt;li&gt;&#123;@link LockSupport#parkNanos LockSupport.parkNanos&#125;&lt;&#x2F;li&gt;</span><br><span class="line">         *   &lt;li&gt;&#123;@link LockSupport#parkUntil LockSupport.parkUntil&#125;&lt;&#x2F;li&gt;</span><br><span class="line">         * &lt;&#x2F;ul&gt;</span><br><span class="line">         *&#x2F;</span><br><span class="line">        TIMED_WAITING,</span><br><span class="line"></span><br><span class="line">        &#x2F;**</span><br><span class="line">         * Thread state for a terminated thread.</span><br><span class="line">         * The thread has completed execution.</span><br><span class="line">         *&#x2F;</span><br><span class="line">        TERMINATED;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>NEW：还未调用start()的线程处于NEW状态。</p>
+<p>RUNABLE: 包含了处于就绪Ready和运行Running</p>
+<p>WAITING、TIMED_WAITING只是加入了超时时间。</p>
+<h1 id="线程创建"><a href="#线程创建" class="headerlink" title="线程创建"></a>线程创建</h1><p>有三种创建线程的方式：实现Runable接口、继承Thread类、实现Callable</p>
+<p>callable可以拿到线程执行的结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Call</span> <span class="keyword">implements</span> <span class="title">Callable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"test"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">        FutureTask futureTask = <span class="keyword">new</span> FutureTask(<span class="keyword">new</span> Call());</span><br><span class="line">        <span class="keyword">new</span> Thread(futureTask).start();</span><br><span class="line">        System.out.println(futureTask.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200517205213265.png" alt="在这里插入图片描述"></p>
+<h1 id="线程通知机制"><a href="#线程通知机制" class="headerlink" title="线程通知机制"></a>线程通知机制</h1><p>Object类是所有类的父类，它拥有wait()、notify()等方法。</p>
+<p>要先使用这些方法，首先必须要拿到该对象的监视器锁（在synchronized修饰的代码块中）。</p>
+<p>wait():线程挂起，并释放对象的监视器锁。加入锁对象的等待队列。</p>
+<p>notify():随机唤醒一个该对象等待队列中的线程，使之进入同步队列去争抢监视器锁。notify并不会释放锁</p>
+<p><img src="https://img-blog.csdnimg.cn/20200517205324602.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Object o = <span class="keyword">new</span> Object();</span><br><span class="line">         Thread threadA = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">50</span> ;i++)&#123;</span><br><span class="line">                    <span class="keyword">synchronized</span> (o)&#123;</span><br><span class="line">                     System.out.println(Thread.currentThread().getName()+<span class="string">"线程一"</span>+i);</span><br><span class="line">                         o.notify();</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            o.wait();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;&#125;);</span><br><span class="line"></span><br><span class="line">         Thread threadB = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;<span class="number">50</span> ;j++)&#123;</span><br><span class="line">                     <span class="keyword">synchronized</span> (o)&#123;</span><br><span class="line">                     System.out.println(Thread.currentThread().getName()+<span class="string">"线程二"</span>+j);</span><br><span class="line"></span><br><span class="line">                         o.notify();</span><br><span class="line">                         <span class="keyword">try</span> &#123;</span><br><span class="line">                             o.wait();</span><br><span class="line">                         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                             e.printStackTrace();</span><br><span class="line">                         &#125;</span><br><span class="line">                     &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;&#125;);</span><br><span class="line"></span><br><span class="line">         threadA.start();</span><br><span class="line">         Thread.sleep(<span class="number">100</span>);</span><br><span class="line">         threadB.start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200517205256623.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>threadA先启动，之后主线程谁100ms，确保线程A先拿到对象o的监视器锁。线程A输出后，调用notify()唤醒处于等待队列的线程，此时并没又唤醒任何线程，然后wait()阻塞。此后，主线程睡眠结束，线程B开始执行。线程B输出后，执行notify()将线程A从等待队列唤醒进入同步队列，然后线程Bwait()释放锁，让线程A执行。</p>
+<p>threadA先启动，之后主线程谁100ms，确保线程A先拿到对象o的监视器锁。线程A输出后，调用notify()唤醒处于等待队列的线程，此时并没又唤醒任何线程，然后wait()阻塞。此后，主线程睡眠结束，线程B开始执行。线程B输出后，执行notify()将线程A从等待队列唤醒进入同步队列，然后线程Bwait()释放锁，让线程A执行。</p>
+<p>sleep()释放同步锁。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-xxxxs adas dsad s d ad s as" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/05/15/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" class="article-date">
+      <time datetime="2020-05-15T10:03:18.640Z" itemprop="datePublished">2020-05-15</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/05/15/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/">test</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>xxxxs adas dsad s d ad s as </p>
+<p>YSNB</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/ceshi/">ceshi</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-wait()、notify()多线程交替输出" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -520,65 +674,6 @@
 <p>4、执行 show slave status<br>若Slave_IO_Running、Slave_SQL_Running为yes,基本没问题。做进一步测试验证主从是否成功<br><img src="https://img-blog.csdnimg.cn/20200508180250298.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h2 id="期间遇到的问题"><a href="#期间遇到的问题" class="headerlink" title="期间遇到的问题"></a>期间遇到的问题</h2><p>克隆了一个虚拟机作为从库，在完成配置后。发现主从同步失败。</p>
 <p>在从库查看mysql   slave_io_running状态no，进一步查询错误日志。<br><img src="https://img-blog.csdnimg.cn/20200508180714379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>错误原因是克隆的虚拟机与原虚拟机的mysql 的uuid一致。可使用find -name auto.cnf 找到mysql的这个配置文件，修改uuid的值之后重启数据库。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-xxxxs adas dsad s d ad s as" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" class="article-date">
-      <time datetime="2020-03-31T03:37:19.601Z" itemprop="datePublished">2020-03-31</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/03/31/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/">xxxxs adas dsad s d ad s as</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>xxxxs adas dsad s d ad s as </p>
-<p>YSNB</p>
 
       
     </div>
