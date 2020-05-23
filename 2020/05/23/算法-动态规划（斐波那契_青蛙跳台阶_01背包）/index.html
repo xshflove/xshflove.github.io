@@ -7,24 +7,23 @@
   
   
   
-  <title>mysql主从同步实践 | 海安养猪场</title>
+  <title>算法-动态规划（斐波那契_青蛙跳台阶_01背包） | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="主从同步原理binlog用于记录用户操作数据库的sql语句。主从同步环境中，主库与从库建立通信将主库的binlog发送给从库。从库将binlog解析为relaylog后，在从库执行sql语句。 操作步骤：主库配置1、配置my.cnf，开启binlog 1234567server_id &#x3D; 1                #唯一标识，主库从库不能重复log_bin &#x3D; mysql-bin">
+  <meta name="description" content="动态规划的基本思想是通过子问题的结果推导出问题结果。先把子问题结果都保存起来，要求问题结果时，从保存的结果里找到之前的结果组合成新问题的结果。同时遵循自左向右，自下而上。 斐波那契F（n）&#x3D; F(n-1)+F(n-2)是问题结果的推导。n时的结果是n-1的结果加n-2的结果。用数组来保存之前的结果，要求N时，就去数组里拿。 这题也能用递归求解，但耗时过长。每次递归都要重新计算结果。 1234567">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mysql主从同步实践">
-<meta property="og:url" content="http://www.xshf1996.cn/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:title" content="算法-动态规划（斐波那契_青蛙跳台阶_01背包）">
+<meta property="og:url" content="http://www.xshf1996.cn/2020/05/23/%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91_%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6_01%E8%83%8C%E5%8C%85%EF%BC%89/index.html">
 <meta property="og:site_name" content="海安养猪场">
-<meta property="og:description" content="主从同步原理binlog用于记录用户操作数据库的sql语句。主从同步环境中，主库与从库建立通信将主库的binlog发送给从库。从库将binlog解析为relaylog后，在从库执行sql语句。 操作步骤：主库配置1、配置my.cnf，开启binlog 1234567server_id &#x3D; 1                #唯一标识，主库从库不能重复log_bin &#x3D; mysql-bin">
+<meta property="og:description" content="动态规划的基本思想是通过子问题的结果推导出问题结果。先把子问题结果都保存起来，要求问题结果时，从保存的结果里找到之前的结果组合成新问题的结果。同时遵循自左向右，自下而上。 斐波那契F（n）&#x3D; F(n-1)+F(n-2)是问题结果的推导。n时的结果是n-1的结果加n-2的结果。用数组来保存之前的结果，要求N时，就去数组里拿。 这题也能用递归求解，但耗时过长。每次递归都要重新计算结果。 1234567">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508174850651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508175826961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508180250298.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508180714379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-05-09T08:37:00.807Z">
-<meta property="article:modified_time" content="2020-05-09T08:37:00.851Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200523151909621.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200523152441789.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200523155207155.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-05-23T08:04:24.221Z">
+<meta property="article:modified_time" content="2020-05-23T08:04:24.259Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200508174850651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200523151909621.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -237,11 +236,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-mysql主从同步实践" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-算法-动态规划（斐波那契_青蛙跳台阶_01背包）" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/" class="article-date">
-      <time datetime="2020-05-09T08:37:00.807Z" itemprop="datePublished">2020-05-09</time>
+      <a  href="/2020/05/23/%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91_%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6_01%E8%83%8C%E5%8C%85%EF%BC%89/" class="article-date">
+      <time datetime="2020-05-23T08:04:24.221Z" itemprop="datePublished">2020-05-23</time>
 </a>
 
     </div>
@@ -255,7 +254,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      mysql主从同步实践
+      算法-动态规划（斐波那契_青蛙跳台阶_01背包）
     </h1>
   
 
@@ -264,6 +263,10 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    </div>
+
 
         
         <div class="clearfix"></div>
@@ -273,21 +276,24 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="主从同步原理"><a href="#主从同步原理" class="headerlink" title="主从同步原理"></a>主从同步原理</h2><p>binlog用于记录用户操作数据库的sql语句。主从同步环境中，主库与从库建立通信将主库的binlog发送给从库。从库将binlog解析为relaylog后，在从库执行sql语句。<br><img src="https://img-blog.csdnimg.cn/20200508174850651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="操作步骤："><a href="#操作步骤：" class="headerlink" title="操作步骤："></a>操作步骤：</h2><h3 id="主库配置"><a href="#主库配置" class="headerlink" title="主库配置"></a>主库配置</h3><p>1、配置my.cnf，开启binlog</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server_id = 1                <span class="comment">#唯一标识，主库从库不能重复</span></span><br><span class="line">log_bin = mysql-bin          <span class="comment">#开启日志</span></span><br><span class="line">binlog_format=MIXED      　　 <span class="comment">#日志记录的格式</span></span><br><span class="line">max_binlog_size = 512M  　　　<span class="comment">#单个日志文件最大</span></span><br><span class="line">expire_logs_day = 3          <span class="comment">#日志有效期（天）</span></span><br><span class="line">binlog_do_db = test1,test2    <span class="comment">#日志记录那些数据库</span></span><br><span class="line">binlog_ignore_db = mysql,performance_schema,information_schema <span class="comment">#日志记录忽略那些数据库的</span></span><br></pre></td></tr></table></figure>
-<p>2、重启数据库</p>
-<p>3、为从库创建同步用户</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">replication</span> <span class="keyword">slave</span> <span class="keyword">on</span> *.* <span class="keyword">to</span> <span class="string">'slave'</span>@<span class="string">'192.168.97.149'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'123456'</span>;</span><br></pre></td></tr></table></figure>
-<p>4、主库执行show master status;<br>留意File和Position的值，在从库配置时会用到。<br><img src="https://img-blog.csdnimg.cn/20200508175826961.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h3 id="从库配置"><a href="#从库配置" class="headerlink" title="从库配置"></a>从库配置</h3><p>1、配置my.cnf</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server_id = 2</span><br><span class="line">log_bin = mysql-bin	    <span class="comment">#开启日志</span></span><br><span class="line">binlog_format=MIXED	    <span class="comment">#日志记录的格式</span></span><br><span class="line">max_binlog_size = 512M  　　 <span class="comment">#单个日志文件最大</span></span><br><span class="line">expire_logs_day = 3	　　 <span class="comment">#日志有效期（天）</span></span><br><span class="line">replicate_do_db = test1,test2 <span class="comment">#是在slave上配置，指定slave要复制哪个库</span></span><br><span class="line">replicate-ignore-db=mysql,performance_schema,information_schema <span class="comment">#是在slave上配置，指定slave要忽略哪个库</span></span><br><span class="line">relay_log_recovery = 1  　　 <span class="comment">#从库建议开启，有利于数据一致性</span></span><br><span class="line">log_slave_updates = 1   　　 <span class="comment">#如果从库还会用做主库，建议开启</span></span><br></pre></td></tr></table></figure>
-<p>2、重启数据库</p>
-<p>3、在从库数据库执行语句，file、pos需与主库内容一致</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">stop</span> <span class="keyword">slave</span>;</span><br><span class="line"><span class="keyword">change</span> <span class="keyword">master</span> <span class="keyword">to</span></span><br><span class="line">master_host=<span class="string">'192.168.97.115'</span>,</span><br><span class="line">master_user=<span class="string">'slave'</span>,</span><br><span class="line">master_password=<span class="string">'123456'</span>,</span><br><span class="line">master_port=<span class="number">3306</span>,</span><br><span class="line">master_log_file=<span class="string">'mysql_bin.000001'</span>, </span><br><span class="line">master_log_pos=<span class="number">448</span>;</span><br><span class="line"><span class="keyword">start</span> <span class="keyword">slave</span>;</span><br></pre></td></tr></table></figure>
-<p>4、执行 show slave status<br>若Slave_IO_Running、Slave_SQL_Running为yes,基本没问题。做进一步测试验证主从是否成功<br><img src="https://img-blog.csdnimg.cn/20200508180250298.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="期间遇到的问题"><a href="#期间遇到的问题" class="headerlink" title="期间遇到的问题"></a>期间遇到的问题</h2><p>克隆了一个虚拟机作为从库，在完成配置后。发现主从同步失败。</p>
-<p>在从库查看mysql   slave_io_running状态no，进一步查询错误日志。<br><img src="https://img-blog.csdnimg.cn/20200508180714379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>错误原因是克隆的虚拟机与原虚拟机的mysql 的uuid一致。可使用find -name auto.cnf 找到mysql的这个配置文件，修改uuid的值之后重启数据库。</p>
+        <p>动态规划的基本思想是通过子问题的结果推导出问题结果。先把子问题结果都保存起来，要求问题结果时，从保存的结果里找到之前的结果组合成新问题的结果。同时遵循自左向右，自下而上。</p>
+<h1 id="斐波那契"><a href="#斐波那契" class="headerlink" title="斐波那契"></a>斐波那契</h1><p><img src="https://img-blog.csdnimg.cn/20200523151909621.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>F（n）= F(n-1)+F(n-2)是问题结果的推导。n时的结果是n-1的结果加n-2的结果。用数组来保存之前的结果，要求N时，就去数组里拿。</p>
+<p>这题也能用递归求解，但耗时过长。每次递归都要重新计算结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/** 动态规划思想，初始化dp数组保存每个子问题的解。直接根据数组计算下个结果**/</span></span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 结果数组</span></span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;=n;i++)&#123;</span><br><span class="line">            dp[i] = (dp[i-<span class="number">1</span>]+dp[i-<span class="number">2</span>]) %<span class="number">1000000007</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="青蛙跳台阶"><a href="#青蛙跳台阶" class="headerlink" title="青蛙跳台阶"></a>青蛙跳台阶</h1><p><img src="https://img-blog.csdnimg.cn/20200523152441789.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>要求n级台阶跳的次数。要知道青蛙最后一次跳台阶，要么跳一格要么跳二格。当跳一格时，那他已经跳了n-1格台阶，也就是有f(n-1)种方法跳到n-1级台阶。当跳两格时，那他已经跳了n-2格同理就是f(n-2)。进而发f(n)=f(n-2)+f(n-1)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numWays</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        res[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        res[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            res[i] = (res[i-<span class="number">1</span>]+res[i-<span class="number">2</span>]) % <span class="number">1000000007</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h1><p>给定 n 个物品和一个容量为 W 的背包，物品 i 的重量是 wi，其价值为 vi 。应该如何选择装入背包的物品，使得装入背包中的物品的总价值最大？<br>（输出给定n和W时的最大总价值）</p>
+<p>例：<br>有如下5个物品，小明的书包最多只能装下8公斤的物品，小明特别贪心，思考怎么选择使自己书包能装下并且得到的价值最大。</p>
+<p>物品1:6公斤　　 价值48元<br>物品2:1公斤 　　 价值7元<br>物品3:5公斤 　　 价值40元<br>物品4:2公斤 　　 价值12元<br>物品5:1公斤 　　 价值8元</p>
+<p><img src="https://img-blog.csdnimg.cn/20200523155207155.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>建立二维表，行代表背包容量。列代表可以放入的物品。遵循自左向右自下而上。从左下角开始填表，当背包容量为1kg和有物品5的情况下，最大价值就是8元。当背包容量为1kg和有物品4、物品5的情况下，最大价值为12元。<br>逐步将问题抽象为，第n件物品放还是不放的问题。以上图表格为例。现在要求行为2，列为3的值。也就是背包容量为3kg,可放物品有2、3、4、5。</p>
+<p>如果物品2不放，就是求背包容量为3kg,可放物品有3、4、5的值，也就是标黄格子的值。<br>如果物品2放，要把物品2的1kg空出来，背包也就只有2kg,可放物品为3、4、5。也就是红格子所代表的值。拿红格子的值加要放入背包的物品2的值就是这个子问题的解。</p>
+<p>最后比较这两个子问题，哪个大就选哪个。</p>
 
       
     </div>
@@ -296,13 +302,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/">mysql主从同步实践</a></p>
+        <p><span>本文标题:</span><a  href="/2020/05/23/%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91_%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6_01%E8%83%8C%E5%8C%85%EF%BC%89/">算法-动态规划（斐波那契_青蛙跳台阶_01背包）</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
-        <p><span>发布时间:</span>2020年05月09日 - 16时37分</p>
-        <p><span>最后更新:</span>2020年05月09日 - 16时37分</p>
+        <p><span>发布时间:</span>2020年05月23日 - 16时04分</p>
+        <p><span>最后更新:</span>2020年05月23日 - 16时04分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/" title="mysql主从同步实践">http://www.xshf1996.cn/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/　　作者: Mr.xu" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/05/23/%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91_%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6_01%E8%83%8C%E5%8C%85%EF%BC%89/" title="算法-动态规划（斐波那契_青蛙跳台阶_01背包）">http://www.xshf1996.cn/2020/05/23/%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91_%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6_01%E8%83%8C%E5%8C%85%EF%BC%89/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/05/23/%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91_%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6_01%E8%83%8C%E5%8C%85%EF%BC%89/　　作者: Mr.xu" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -313,15 +319,11 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          springboot整合ldap实现AD域认证
-        
-      </div>
-    </a>
   
+    <a  href="/2020/05/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">多线程（一）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -331,7 +333,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#主从同步原理"><span class="toc-number">1.</span> <span class="toc-text">主从同步原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#操作步骤："><span class="toc-number">2.</span> <span class="toc-text">操作步骤：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主库配置"><span class="toc-number">2.1.</span> <span class="toc-text">主库配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从库配置"><span class="toc-number">2.2.</span> <span class="toc-text">从库配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#期间遇到的问题"><span class="toc-number">3.</span> <span class="toc-text">期间遇到的问题</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#斐波那契"><span class="toc-number">1.</span> <span class="toc-text">斐波那契</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#青蛙跳台阶"><span class="toc-number">2.</span> <span class="toc-text">青蛙跳台阶</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#01背包"><span class="toc-number">3.</span> <span class="toc-text">01背包</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -404,13 +406,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/" title="上一篇: springboot整合ldap实现AD域认证">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a  href="/2020/05/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/" title="下一篇: 多线程（一）">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
     <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/05/23/%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91_%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6_01%E8%83%8C%E5%8C%85%EF%BC%89/">算法-动态规划（斐波那契_青蛙跳台阶_01背包）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/">多线程（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/15/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/">test</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/">wait()、notify()多线程交替输出</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/">Mysql函数group_concat、find_in_set进行数据库字段值翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/">nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/">springboot整合ldap实现AD域认证</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/">mysql主从同步实践</a></li></ul>

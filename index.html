@@ -233,6 +233,85 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-算法-动态规划（斐波那契_青蛙跳台阶_01背包）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/05/23/%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91_%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6_01%E8%83%8C%E5%8C%85%EF%BC%89/" class="article-date">
+      <time datetime="2020-05-23T08:04:24.221Z" itemprop="datePublished">2020-05-23</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/05/23/%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91_%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6_01%E8%83%8C%E5%8C%85%EF%BC%89/">算法-动态规划（斐波那契_青蛙跳台阶_01背包）</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>动态规划的基本思想是通过子问题的结果推导出问题结果。先把子问题结果都保存起来，要求问题结果时，从保存的结果里找到之前的结果组合成新问题的结果。同时遵循自左向右，自下而上。</p>
+<h1 id="斐波那契"><a href="#斐波那契" class="headerlink" title="斐波那契"></a>斐波那契</h1><p><img src="https://img-blog.csdnimg.cn/20200523151909621.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>F（n）= F(n-1)+F(n-2)是问题结果的推导。n时的结果是n-1的结果加n-2的结果。用数组来保存之前的结果，要求N时，就去数组里拿。</p>
+<p>这题也能用递归求解，但耗时过长。每次递归都要重新计算结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/** 动态规划思想，初始化dp数组保存每个子问题的解。直接根据数组计算下个结果**/</span></span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 结果数组</span></span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;=n;i++)&#123;</span><br><span class="line">            dp[i] = (dp[i-<span class="number">1</span>]+dp[i-<span class="number">2</span>]) %<span class="number">1000000007</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="青蛙跳台阶"><a href="#青蛙跳台阶" class="headerlink" title="青蛙跳台阶"></a>青蛙跳台阶</h1><p><img src="https://img-blog.csdnimg.cn/20200523152441789.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>要求n级台阶跳的次数。要知道青蛙最后一次跳台阶，要么跳一格要么跳二格。当跳一格时，那他已经跳了n-1格台阶，也就是有f(n-1)种方法跳到n-1级台阶。当跳两格时，那他已经跳了n-2格同理就是f(n-2)。进而发f(n)=f(n-2)+f(n-1)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numWays</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        res[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        res[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            res[i] = (res[i-<span class="number">1</span>]+res[i-<span class="number">2</span>]) % <span class="number">1000000007</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h1><p>给定 n 个物品和一个容量为 W 的背包，物品 i 的重量是 wi，其价值为 vi 。应该如何选择装入背包的物品，使得装入背包中的物品的总价值最大？<br>（输出给定n和W时的最大总价值）</p>
+<p>例：<br>有如下5个物品，小明的书包最多只能装下8公斤的物品，小明特别贪心，思考怎么选择使自己书包能装下并且得到的价值最大。</p>
+<p>物品1:6公斤　　 价值48元<br>物品2:1公斤 　　 价值7元<br>物品3:5公斤 　　 价值40元<br>物品4:2公斤 　　 价值12元<br>物品5:1公斤 　　 价值8元</p>
+<p><img src="https://img-blog.csdnimg.cn/20200523155207155.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>建立二维表，行代表背包容量。列代表可以放入的物品。遵循自左向右自下而上。从左下角开始填表，当背包容量为1kg和有物品5的情况下，最大价值就是8元。当背包容量为1kg和有物品4、物品5的情况下，最大价值为12元。<br>逐步将问题抽象为，第n件物品放还是不放的问题。以上图表格为例。现在要求行为2，列为3的值。也就是背包容量为3kg,可放物品有2、3、4、5。</p>
+<p>如果物品2不放，就是求背包容量为3kg,可放物品有3、4、5的值，也就是标黄格子的值。<br>如果物品2放，要把物品2的1kg空出来，背包也就只有2kg,可放物品为3、4、5。也就是红格子所代表的值。拿红格子的值加要放入背包的物品2的值就是这个子问题的解。</p>
+<p>最后比较这两个子问题，哪个大就选哪个。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-多线程（一）" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
