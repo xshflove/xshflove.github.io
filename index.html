@@ -233,6 +233,72 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-sychorzied锁升级过程" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/05/31/sychorzied%E9%94%81%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/" class="article-date">
+      <time datetime="2020-05-31T06:53:46.703Z" itemprop="datePublished">2020-05-31</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/05/31/sychorzied%E9%94%81%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/">sychorzied锁升级过程</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>锁升级设计的目的主要为在没有多线程竞争的场景下，减少加锁带来的资源消耗。</p>
+<h1 id="java对象MarkWord"><a href="#java对象MarkWord" class="headerlink" title="java对象MarkWord"></a>java对象MarkWord</h1><p>首先分配在堆中的java对象由对象头、实例数据、对齐填充组成。<br><img src="https://img-blog.csdnimg.cn/20200531142645887.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在markword中存储锁相关的信息，是实现锁升级的关键。<br><img src="https://img-blog.csdnimg.cn/20200531143057428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="无锁-gt-偏向锁"><a href="#无锁-gt-偏向锁" class="headerlink" title="无锁-&gt;偏向锁"></a>无锁-&gt;偏向锁</h1><p>初始状态是无锁状态。当第一个线程进入同步代码块，markword中的锁标志会更新为01，并通过cas操作将当前线程存入markword中。当下次同一个线程再次进入同步代码块，会比较markword中的线程id是否一致，若一致就不需要再次加锁。</p>
+<p>若是在必定发生多线程竞争的场景下，用参数-xx:-UseBiasedLocking来禁止偏向锁提示性能。</p>
+<h1 id="偏向锁-gt-轻量级锁"><a href="#偏向锁-gt-轻量级锁" class="headerlink" title="偏向锁-&gt;轻量级锁"></a>偏向锁-&gt;轻量级锁</h1><p>1、首先在当前线程的栈帧中创建锁记录LockRecord。<br>2、将markword拷贝到锁记录中，也就是加了displaced的位置。<br><img src="https://img-blog.csdnimg.cn/20200531143959855.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>3、将锁记录中的owner指向对象头。<br>4、将对象头指向锁记录中的markword复制<br><img src="https://img-blog.csdnimg.cn/20200531144143879.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-多线程(二) volatile" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
