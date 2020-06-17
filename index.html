@@ -233,6 +233,70 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-相交链表" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/06/17/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/" class="article-date">
+      <time datetime="2020-06-17T08:01:26.265Z" itemprop="datePublished">2020-06-17</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/06/17/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/">相交链表</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="https://img-blog.csdnimg.cn/20200617155516320.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> * 0 9 1 2 4 3 2 4</span></span><br><span class="line"><span class="comment"> * 3 2 4 0 9 1 2 4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        ListNode tempA = headA;</span><br><span class="line">        ListNode tempB = headB;</span><br><span class="line">        <span class="keyword">if</span>(tempB == <span class="keyword">null</span> || tempA == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(tempA != tempB)&#123;</span><br><span class="line">            <span class="comment">// 两个链表的next都是null表示组合过了</span></span><br><span class="line">            <span class="keyword">if</span>(tempA.next == <span class="keyword">null</span> &amp;&amp; tempB.next == <span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(tempA.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            tempA = tempA.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">// 将长短链表组合</span></span><br><span class="line">                tempA = headB;</span><br><span class="line">            </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(tempB.next != <span class="keyword">null</span>)&#123;</span><br><span class="line">            tempB = tempB.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                tempB = headA;</span><br><span class="line">            </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tempB;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95-%E9%93%BE%E8%A1%A8%E5%8F%8C%E6%8C%87%E9%92%88/">算法,链表双指针</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-JVM(一)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -833,72 +897,6 @@
       
           
         <p>接到问题反馈，调用上传图片接口有时成功、有时失败。<br>后台的错误日志提示与传参序列化有关，但这不是直接原因，这里的误导导致查找问题走了很多弯路。<br><img src="https://img-blog.csdnimg.cn/20200508110332328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="xx"><br>前端页面调试时显示错误Request Entity Too Large，这才是问题的关键。<br><img src="https://img-blog.csdnimg.cn/20200508110717314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>nginx默认的bodysize为1M，请求超过此大小便失败。<br>在nginx配置文件补上client_max_body_size ,重启nginx解决<br><img src="https://img-blog.csdnimg.cn/20200508111037631.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-springboot整合ldap实现AD域认证" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/" class="article-date">
-      <time datetime="2020-05-12T08:39:32.711Z" itemprop="datePublished">2020-05-12</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/">springboot整合ldap实现AD域认证</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h1 id="springboot整合ldap实现AD域认证"><a href="#springboot整合ldap实现AD域认证" class="headerlink" title="springboot整合ldap实现AD域认证"></a>springboot整合ldap实现AD域认证</h1><p>这里以<br>distinguishedName:<br>CN=service_leave,OU=Service,OU=SysAuth,DC=al,DC=com对应的条目为例</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1、引入maven"><a href="#1、引入maven" class="headerlink" title="1、引入maven"></a>1、引入maven</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-data-ldap&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="2、配置yml"><a href="#2、配置yml" class="headerlink" title="2、配置yml"></a>2、配置yml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  ##AD认证</span><br><span class="line">  ldap:</span><br><span class="line">  ##AD服务器IP，默认端口389</span><br><span class="line">    urls: ldap:&#x2F;&#x2F;1.1.1.1:389</span><br><span class="line">   ##登录账号</span><br><span class="line">    username: service</span><br><span class="line">   ##密码</span><br><span class="line">    password: labjB57uc734</span><br><span class="line">   #distinguishedName的部分节点</span><br><span class="line">    base: OU&#x3D;Service,OU&#x3D;SysAuth,DC&#x3D;al,DC&#x3D;com</span><br></pre></td></tr></table></figure>
-<h3 id="3、配置config"><a href="#3、配置config" class="headerlink" title="3、配置config"></a>3、配置config</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class LdapConfig &#123;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.urls&#125;&quot;)</span><br><span class="line">    private String ldapUrl;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.username&#125;&quot;)</span><br><span class="line">    private String userName;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.password&#125;&quot;)</span><br><span class="line">    private String passWord;</span><br><span class="line">    @Value(&quot;$&#123;spring.ldap.base&#125;&quot;)</span><br><span class="line">    private String base;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public LdapContextSource ldapContextSource()&#123;</span><br><span class="line">        LdapContextSource source &#x3D; new LdapContextSource();</span><br><span class="line">        source.setBase(base);</span><br><span class="line">        source.setUrl(ldapUrl);</span><br><span class="line">        source.setPassword(passWord);</span><br><span class="line">        source.setUserDn(userName);</span><br><span class="line">        return source;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public LdapTemplate ldapTemplate()&#123;</span><br><span class="line">        return new LdapTemplate(ldapContextSource());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4、编写service、serviceImpl"><a href="#4、编写service、serviceImpl" class="headerlink" title="4、编写service、serviceImpl"></a>4、编写service、serviceImpl</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface LdapService &#123;</span><br><span class="line"></span><br><span class="line">    boolean ldapAuth(String username, String passWord);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class LdapServiceImpl implements LdapService &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private LdapTemplate ldapTemplate;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean ldapAuth(String username, String passWord) &#123;</span><br><span class="line">        EqualsFilter filter &#x3D; new EqualsFilter(&quot;sAMAccountName&quot;,username);</span><br><span class="line">        return ldapTemplate.authenticate(&quot;&quot;,filter.toString(),passWord);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>sAMAccountName是ladp中记录的一个属性</p>
-<h3 id="5、编写测试用例"><a href="#5、编写测试用例" class="headerlink" title="5、编写测试用例"></a>5、编写测试用例</h3><p><img src="https://img-blog.csdnimg.cn/20191105182837355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
       
     </div>
