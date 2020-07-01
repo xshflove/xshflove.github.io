@@ -233,6 +233,66 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-wait()、notify()多线程交替输出" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/" class="article-date">
+      <time datetime="2020-05-12T08:39:43.788Z" itemprop="datePublished">2020-05-12</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/">wait()、notify()多线程交替输出</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>在线程获取到锁对象后，执行锁对象的wait()。当前线程将释放锁并加入锁对象的等待队列，其他线程调用锁对象的notify()、notifyAll(),则将之前加到等待队列的线程改变到锁对象的就绪队列中。等到CPU轮转到这个线程，就继续执行输出。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Object o = <span class="keyword">new</span> Object();</span><br><span class="line">         Thread threadA = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">50</span> ;i++)&#123;</span><br><span class="line">                    <span class="keyword">synchronized</span> (o)&#123;</span><br><span class="line">                     System.out.println(Thread.currentThread().getName()+<span class="string">"线程一"</span>+i);</span><br><span class="line">                         o.notify();</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            o.wait();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;&#125;);</span><br><span class="line"></span><br><span class="line">         Thread threadB = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;<span class="number">50</span> ;j++)&#123;</span><br><span class="line">                     <span class="keyword">synchronized</span> (o)&#123;</span><br><span class="line">                     System.out.println(Thread.currentThread().getName()+<span class="string">"线程二"</span>+j);</span><br><span class="line"></span><br><span class="line">                         o.notify();</span><br><span class="line">                         <span class="keyword">try</span> &#123;</span><br><span class="line">                             o.wait();</span><br><span class="line">                         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                             e.printStackTrace();</span><br><span class="line">                         &#125;</span><br><span class="line">                     &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;&#125;);</span><br><span class="line"></span><br><span class="line">         threadA.start();</span><br><span class="line">         Thread.sleep(<span class="number">100</span>);</span><br><span class="line">         threadB.start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Mysql函数group_concat、find_in_set进行数据库字段值翻译" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
