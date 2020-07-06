@@ -7,23 +7,30 @@
   
   
   
-  <title>Mysql函数group_concat、find_in_set进行数据库字段值翻译 | 海安养猪场</title>
+  <title>KMP字符串模式匹配算法解析 | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="场景配方表：记录包含的原料sources表示原料，字段值之间用逗号分隔原料表：对应原料id和原料名称 现需要查询出的原料结果显示为原料名称，并以逗号分隔。可通过函数group_concat、find_in_set实现">
+  <meta name="description" content="给定一个目标串，一个模式串。判断目标串是否包含模式串，返回目标串开始匹配的地址。 BF算法BF算法采用穷举，每次不等时目标串 i加1，模式串j回退到0。平均时间复杂度为O(M*N) 123456789101112131415161718192021static int bf(String yuan, String target)&amp;#123;        char[] yuanChar &#x3D; yua">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mysql函数group_concat、find_in_set进行数据库字段值翻译">
-<meta property="og:url" content="http://www.xshf1996.cn/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/index.html">
+<meta property="og:title" content="KMP字符串模式匹配算法解析">
+<meta property="og:url" content="http://www.xshf1996.cn/2020/07/06/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="海安养猪场">
-<meta property="og:description" content="场景配方表：记录包含的原料sources表示原料，字段值之间用逗号分隔原料表：对应原料id和原料名称 现需要查询出的原料结果显示为原料名称，并以逗号分隔。可通过函数group_concat、find_in_set实现">
+<meta property="og:description" content="给定一个目标串，一个模式串。判断目标串是否包含模式串，返回目标串开始匹配的地址。 BF算法BF算法采用穷举，每次不等时目标串 i加1，模式串j回退到0。平均时间复杂度为O(M*N) 123456789101112131415161718192021static int bf(String yuan, String target)&amp;#123;        char[] yuanChar &#x3D; yua">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200302162456438.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020030216290333.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200302163100692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-05-12T08:39:38.455Z">
-<meta property="article:modified_time" content="2020-05-12T08:39:38.492Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706152626110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706152955783.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706160609893.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020070616323829.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706163423879.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706163635800.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706164946926.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706165623928.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200706172655419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020070617174047.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-07-06T09:32:54.512Z">
+<meta property="article:modified_time" content="2020-07-06T09:32:54.577Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200302162456438.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200706152626110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -236,11 +243,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-Mysql函数group_concat、find_in_set进行数据库字段值翻译" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-KMP字符串模式匹配算法解析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/" class="article-date">
-      <time datetime="2020-05-12T08:39:38.455Z" itemprop="datePublished">2020-05-12</time>
+      <a  href="/2020/07/06/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/" class="article-date">
+      <time datetime="2020-07-06T09:32:54.512Z" itemprop="datePublished">2020-07-06</time>
 </a>
 
     </div>
@@ -254,7 +261,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Mysql函数group_concat、find_in_set进行数据库字段值翻译
+      KMP字符串模式匹配算法解析
     </h1>
   
 
@@ -272,8 +279,29 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>配方表：记录包含的原料<br>sources表示原料，字段值之间用逗号分隔<br><img src="https://img-blog.csdnimg.cn/20200302162456438.png" alt="在这里插入图片描述"><br>原料表：对应原料id和原料名称<br><img src="https://img-blog.csdnimg.cn/2020030216290333.png" alt="在这里插入图片描述"></p>
-<p>现需要查询出的原料结果显示为原料名称，并以逗号分隔。可通过函数group_concat、find_in_set实现<br><img src="https://img-blog.csdnimg.cn/20200302163100692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+        <p>给定一个目标串，一个模式串。判断目标串是否包含模式串，返回目标串开始匹配的地址。</p>
+<h2 id="BF算法"><a href="#BF算法" class="headerlink" title="BF算法"></a>BF算法</h2><p>BF算法采用穷举，每次不等时目标串 i加1，模式串j回退到0。平均时间复杂度为O(M*N)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">bf</span><span class="params">(String yuan, String target)</span></span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] yuanChar = yuan.toCharArray();</span><br><span class="line">        <span class="keyword">char</span>[] targetChar = target.toCharArray();</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (i &lt; yuan.length() &amp;&amp; j &lt; target.length())&#123;</span><br><span class="line">            <span class="keyword">if</span> (yuanChar[i] == targetChar[j])&#123;</span><br><span class="line">                i++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// i-j表示之前已经发生过的不相等情况</span></span><br><span class="line">                i = i-j +<span class="number">1</span>;</span><br><span class="line">                j = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (j == target.length())&#123;</span><br><span class="line">            <span class="keyword">return</span> i-target.length();</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><p>KMP算法是BF算法的优化，主要减少了在目标串中下标i的比较次数。模式串下标j还是会每次归零。<br>例如：<br>S串     a    a    a    a    b<br>T串     a    a    a    b</p>
+<p>第一轮比较从S[0]、T[0]开始，比较到S[3]、T[3]时，值不相等。<br><img src="https://img-blog.csdnimg.cn/20200706152626110.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>按照BF算法，这时要从S[1]、T[0]再次开始比较。</p>
+<p>可以看到S串、T串前三位是相等的。<br>S[0] = T[0]  S[1] = T[1]  S[2] = T[2]</p>
+<p>在T[3] = b 的前面的三个字符是a a a，a a a 的前两位是 a a,后两位也是a a。<br>根据T[0] = T[1] = T[2]还有上面得到的相等信息，可以得到如下图所示的信息。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200706152955783.png" alt="在这里插入图片描述"><br>按照BF算法，就要拿S[1]和T[0]开始比较。由上图，完全可以从S[3]、T[2]开始下一轮的比较。</p>
+<h3 id="KMP算法核心：next数组"><a href="#KMP算法核心：next数组" class="headerlink" title="KMP算法核心：next数组"></a>KMP算法核心：next数组</h3><p>KMP使用next[j]来<strong>保存在T[j]字符前有多少个字符和T串开头的多少个字符相等，也就是最大前后缀的长度</strong>。<strong>next数组是KMP算法的核心</strong>。</p>
+<p>例如 a a a的最大前后缀是 a a<br>a b a b的最大前后缀是 a b</p>
+<p><strong>默认next[0] = -1 ,表示不保存匹配信息。</strong></p>
+<p>T串 a a a b的next数组如下：<br><img src="https://img-blog.csdnimg.cn/20200706160609893.png" alt="在这里插入图片描述"><br><strong>在有了next[j]数组后，当S[i]和T[j]不匹配时，拿S[i]和T[next[j]]进行比较</strong>，这就是KMP算法主体。</p>
+<p>先看下KMP算法、求next数组的代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">is</span><span class="params">(String yuan, String target)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] next = getNext(target);</span><br><span class="line">        <span class="keyword">char</span>[] yuanChar = yuan.toCharArray();</span><br><span class="line">        <span class="keyword">char</span>[] targetChar = target.toCharArray();</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (i &lt; yuan.length() &amp;&amp; j &lt; target.length())&#123;</span><br><span class="line">            <span class="keyword">if</span> (j == -<span class="number">1</span> || yuanChar[i] == targetChar[j])&#123;</span><br><span class="line">                i++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                j = next[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (j == target.length())&#123;</span><br><span class="line">            <span class="keyword">return</span> (i - target.length());</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] getNext(String target)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">char</span>[] targetChar = target.toCharArray();</span><br><span class="line">        <span class="keyword">int</span>[] next = <span class="keyword">new</span> <span class="keyword">int</span>[targetChar.length];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始条件</span></span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> k = -<span class="number">1</span>;</span><br><span class="line">        next[<span class="number">0</span>] = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据已知的前j位推测第j+1位，length需要-1 防止越界</span></span><br><span class="line">        <span class="keyword">while</span> (j &lt; targetChar.length - <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (k == -<span class="number">1</span> || targetChar[j] == targetChar[k])</span><br><span class="line">            &#123;</span><br><span class="line">                next[++j] = ++k;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                k = next[k];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>给出一个新的模式串并结合代码来看next数组的实现：<br>a b a c a b a b d<br>首先 初始化k = -1,k这个变量的意义就是最大前后缀的大小。</p>
+<h4 id="next数组代码if分支next-j-k的意义"><a href="#next数组代码if分支next-j-k的意义" class="headerlink" title="next数组代码if分支next[++j] = ++k的意义"></a>next数组代码if分支next[++j] = ++k的意义</h4><p>求next[3]</p>
+<p><img src="https://img-blog.csdnimg.cn/2020070616323829.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200706163423879.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>进入while循环时，k = 0 ,j = 2。k是next[2]的值，是ab的最大前后缀。<br><img src="https://img-blog.csdnimg.cn/20200706163635800.png" alt="在这里插入图片描述"><br>k = 0 表示ab还没有匹配到，当下一个字符T[2] = a过来时，拿T[K]也就是开头还没有匹配到的字符和T[j]判断。如果相等，显然aba就有了最大前后缀 为1。所以next[3] = 1;</p>
+<h4 id="if分支k-next-k-的意义"><a href="#if分支k-next-k-的意义" class="headerlink" title="if分支k=next[k]的意义"></a>if分支k=next[k]的意义</h4><p>求next[8]<br><img src="https://img-blog.csdnimg.cn/20200706164946926.png" alt="在这里插入图片描述"></p>
+<p>（1）进入while循环时，k = 3, j = 7。<br>T[3] != T[7]            c != b<br><img src="https://img-blog.csdnimg.cn/20200706165623928.png" alt="在这里插入图片描述"><br>（2）<br>在j = 7 时，next[7] = 3; 开头三位是匹配的①等于②<br>在j = 3 时，next[3] = 1；开头一位是匹配的③等于④<br>根据以上条件可以得到⑤等于⑥ ，③等于⑥。这时候有一位匹配了，也就是next[k =3]的值，只需要拿③下一个字符去匹配T[7]的b。</p>
+<p>经过k=next[k],k 值修改为1并再次回到while循环判断。最后T[1] = T[7],所以next[8] = 2<br><img src="https://img-blog.csdnimg.cn/20200706172655419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/2020070617174047.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -282,13 +310,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/">Mysql函数group_concat、find_in_set进行数据库字段值翻译</a></p>
+        <p><span>本文标题:</span><a  href="/2020/07/06/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/">KMP字符串模式匹配算法解析</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
-        <p><span>发布时间:</span>2020年05月12日 - 16时39分</p>
-        <p><span>最后更新:</span>2020年05月12日 - 16时39分</p>
+        <p><span>发布时间:</span>2020年07月06日 - 17时32分</p>
+        <p><span>最后更新:</span>2020年07月06日 - 17时32分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/" title="Mysql函数group_concat、find_in_set进行数据库字段值翻译">http://www.xshf1996.cn/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/　　作者: Mr.xu" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/07/06/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/" title="KMP字符串模式匹配算法解析">http://www.xshf1996.cn/2020/07/06/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/07/06/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/　　作者: Mr.xu" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -299,18 +327,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          wait()、notify()多线程交替输出
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）</div>
+    <a  href="/2020/07/01/springboot+prometheus+grafana%E6%90%AD%E5%BB%BA%E5%BA%94%E7%94%A8%E7%9B%91%E6%8E%A7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">springboot+prometheus+grafana搭建应用监控</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -322,7 +341,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#场景"><span class="toc-number">1.</span> <span class="toc-text">场景</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BF算法"><span class="toc-number">1.</span> <span class="toc-text">BF算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KMP"><span class="toc-number">2.</span> <span class="toc-text">KMP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#KMP算法核心：next数组"><span class="toc-number">2.1.</span> <span class="toc-text">KMP算法核心：next数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#next数组代码if分支next-j-k的意义"><span class="toc-number">2.1.1.</span> <span class="toc-text">next数组代码if分支next[++j] &#x3D; ++k的意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#if分支k-next-k-的意义"><span class="toc-number">2.1.2.</span> <span class="toc-text">if分支k&#x3D;next[k]的意义</span></a></li></ol></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -395,13 +414,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/" title="上一篇: wait()、notify()多线程交替输出">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/" title="下一篇: nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）">
+            <a  href="/2020/07/01/springboot+prometheus+grafana%E6%90%AD%E5%BB%BA%E5%BA%94%E7%94%A8%E7%9B%91%E6%8E%A7/" title="下一篇: springboot+prometheus+grafana搭建应用监控">
                 <i class="fa fa-angle-right"></i>
             </a>
         
