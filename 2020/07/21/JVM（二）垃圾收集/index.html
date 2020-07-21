@@ -7,23 +7,26 @@
   
   
   
-  <title>nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large） | 海安养猪场</title>
+  <title>JVM（二）垃圾收集 | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="接到问题反馈，调用上传图片接口有时成功、有时失败。后台的错误日志提示与传参序列化有关，但这不是直接原因，这里的误导导致查找问题走了很多弯路。前端页面调试时显示错误Request Entity Too Large，这才是问题的关键。nginx默认的bodysize为1M，请求超过此大小便失败。在nginx配置文件补上client_max_body_size ,重启nginx解决">
+  <meta name="description" content="判断是否垃圾引用计数通过添加一个引用计数器，引用了加1，引用失效减1。引用计数为0则判断为垃圾。但无法收集循环引用的对象。所以一般不采用此方式。 可达性分析通过一系列称为GCRoots的根对象，根据引用向下搜索。如果对象没有可达的GCRoots则标记为垃圾。 可作为GCRoots的对象：1、虚拟机栈栈帧中局部变量表里的变量。2、java类中静态变量。3、常量池中的引用。4、类加载器5、synchr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）">
-<meta property="og:url" content="http://www.xshf1996.cn/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/index.html">
+<meta property="og:title" content="JVM（二）垃圾收集">
+<meta property="og:url" content="http://www.xshf1996.cn/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/index.html">
 <meta property="og:site_name" content="海安养猪场">
-<meta property="og:description" content="接到问题反馈，调用上传图片接口有时成功、有时失败。后台的错误日志提示与传参序列化有关，但这不是直接原因，这里的误导导致查找问题走了很多弯路。前端页面调试时显示错误Request Entity Too Large，这才是问题的关键。nginx默认的bodysize为1M，请求超过此大小便失败。在nginx配置文件补上client_max_body_size ,重启nginx解决">
+<meta property="og:description" content="判断是否垃圾引用计数通过添加一个引用计数器，引用了加1，引用失效减1。引用计数为0则判断为垃圾。但无法收集循环引用的对象。所以一般不采用此方式。 可达性分析通过一系列称为GCRoots的根对象，根据引用向下搜索。如果对象没有可达的GCRoots则标记为垃圾。 可作为GCRoots的对象：1、虚拟机栈栈帧中局部变量表里的变量。2、java类中静态变量。3、常量池中的引用。4、类加载器5、synchr">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508110332328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508110717314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200508111037631.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-05-12T08:39:36.146Z">
-<meta property="article:modified_time" content="2020-05-12T08:39:36.183Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020072114535544.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721145414473.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721150015170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721150411274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020072115201178.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200721153916883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-07-21T08:57:03.937Z">
+<meta property="article:modified_time" content="2020-07-21T08:57:03.969Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200508110332328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2020072114535544.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -236,11 +239,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-JVM（二）垃圾收集" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/" class="article-date">
-      <time datetime="2020-05-12T08:39:36.146Z" itemprop="datePublished">2020-05-12</time>
+      <a  href="/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" class="article-date">
+      <time datetime="2020-07-21T08:57:03.937Z" itemprop="datePublished">2020-07-21</time>
 </a>
 
     </div>
@@ -254,7 +257,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）
+      JVM（二）垃圾收集
     </h1>
   
 
@@ -263,6 +266,10 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/JVM/">JVM</a>
+    </div>
+
 
         
         <div class="clearfix"></div>
@@ -272,7 +279,31 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>接到问题反馈，调用上传图片接口有时成功、有时失败。<br>后台的错误日志提示与传参序列化有关，但这不是直接原因，这里的误导导致查找问题走了很多弯路。<br><img src="https://img-blog.csdnimg.cn/20200508110332328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="xx"><br>前端页面调试时显示错误Request Entity Too Large，这才是问题的关键。<br><img src="https://img-blog.csdnimg.cn/20200508110717314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>nginx默认的bodysize为1M，请求超过此大小便失败。<br>在nginx配置文件补上client_max_body_size ,重启nginx解决<br><img src="https://img-blog.csdnimg.cn/20200508111037631.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+        <h1 id="判断是否垃圾"><a href="#判断是否垃圾" class="headerlink" title="判断是否垃圾"></a>判断是否垃圾</h1><h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><p>通过添加一个引用计数器，引用了加1，引用失效减1。引用计数为0则判断为垃圾。但无法收集循环引用的对象。所以一般不采用此方式。</p>
+<h2 id="可达性分析"><a href="#可达性分析" class="headerlink" title="可达性分析"></a>可达性分析</h2><p>通过一系列称为GCRoots的根对象，根据引用向下搜索。如果对象没有可达的GCRoots则标记为垃圾。</p>
+<p>可作为GCRoots的对象：<br>1、虚拟机栈栈帧中局部变量表里的变量。<br>2、java类中静态变量。<br>3、常量池中的引用。<br>4、类加载器<br>5、synchronized关键字持有的对象。</p>
+<h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2><p>强引用：Object j = new Object();这种赋值就是强引用。垃圾收集器永远不会回收强引用对象，即使发生OOM。<br>软引用：软引用对象会在系统发生内存溢出之前，进行回收。<br>弱引用：下次发生垃圾收集就进行回收。<br>虚引用</p>
+<h2 id="finalize（）拯救对象"><a href="#finalize（）拯救对象" class="headerlink" title="finalize（）拯救对象"></a>finalize（）拯救对象</h2><p>判断对象是否进行垃圾回收会经过两次标记。一次是GCRoots的可达性分析。一次是是否执行对象的finalize(),并且重新获得引用。</p>
+<p>假如对象没有重写finalize()，或者finalize()已经执行过了，finalize()在系统中只会执行一次。都不会执行该方法。</p>
+<h2 id="方法区的回收"><a href="#方法区的回收" class="headerlink" title="方法区的回收"></a>方法区的回收</h2><p>判断一个类信息是否要进行回收需要同时满足以下条件：<br>1、该类所有实例都已经进行回收。<br>2、加载该类的类加载器已经进行回收。<br>3、该类的class对象没有任何地方引用比如反射</p>
+<h1 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h1><h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><p>算法分为标记、清除两个阶段。利用可达性分析，判断对象是否是垃圾，然后将标记为垃圾的对象清除。</p>
+<p>缺点：1、对象较多时，标记时间长。<br>2、清除操作带来了大量内存碎片。可能引起更频繁的gc.<br><img src="https://img-blog.csdnimg.cn/2020072114535544.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="标记复制"><a href="#标记复制" class="headerlink" title="标记复制"></a>标记复制</h2><p>将内存分为两块。一块用于存放，一块用于待命。首先进行标记垃圾，然后执行清除操作，再将存活对象按序放进待命的内存。这样解决了大量内存碎片的缺点。但是此方法的内存利用率只有一半，不高。<br><img src="https://img-blog.csdnimg.cn/20200721145414473.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="标记整理"><a href="#标记整理" class="headerlink" title="标记整理"></a>标记整理</h2><p>主要面向老年代。先进行标记操作，然后将存活对象都向内存空间的一端进行移动，清除掉存活边界以外的内存。</p>
+<h1 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h1><p><img src="https://img-blog.csdnimg.cn/20200721150015170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h2><p>![在这里插入图片<img src="https://img-blog.csdnimg.cn/20200721150411274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>当GC线程执行时暂停应用程序线程，也就是stop the world。只有一个线程负责垃圾回收。</p>
+<p>在内存资源受限或者单核处理器下，serialGC由于没有线程交互的开销，有较高的处理效率。</p>
+<h2 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h2><p>ParNew 是Serial GC 的多线程版本。GC时有多个线程执行。用的标记复制算法。</p>
+<h2 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h2><p>与ParNew收集器很相似。Parallel Scavenge 更关注程序的吞吐量。</p>
+<p>吞吐量= 执行用户代码的时间 / （执行用户代码的时间 + 执行垃圾收集的时间）</p>
+<h2 id="SerialOld-收集器"><a href="#SerialOld-收集器" class="headerlink" title="SerialOld 收集器"></a>SerialOld 收集器</h2><p>Serial Old 是Serial 的老年代版本。</p>
+<h2 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h2><p>是Parallel Scavenge的老年代版本<br>关注吞吐量，可以和Parallel Scavenge配合使用。</p>
+<h2 id="CMS-收集器"><a href="#CMS-收集器" class="headerlink" title="CMS 收集器"></a>CMS 收集器</h2><p><img src="https://img-blog.csdnimg.cn/2020072115201178.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>CMS关注垃圾回收的停顿时间。初始标记、重新标记阶段会stop the world<br>。采用了标记清除算法。<br>初始标记：仅标记GCRoots 能直接关联到的对象，速度快。<br>并发标记：沿着 关联对象继续搜索标记。<br>重新标记：修正因为用户操作发生引用变动的对象。<br>并发清理：删除垃圾对象。</p>
+<p>缺点：1、并发标记阶段，因为并发标记，降低了应用的吞吐量。<br>2、并发标记、并发请理阶段，有用户线程存在。产生浮动垃圾。<br>3、采用标记清除算法，产生大量内存碎片。</p>
+<h2 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h2><p>其他收集器要么只收集新生代，要么老年代。G1采用Mixed GC 混合收集。G1没有固定分代的区域划分，而是将堆内存划分成多个大小相等的区域Region,不同Region扮演Eden、或者老年代。除此之外，还有特殊的Humongous区域专门存储大对象。</p>
+<p>G1关注停顿时间，使用-XX：MaxGCPauseMillis来配置想要的停顿时间</p>
+<p><img src="https://img-blog.csdnimg.cn/20200721153916883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>初始标记：只标记GCROOTS直接关联的对象。<br>并发标记：进行可达性分析，找到要回收的对象。<br>最终标记：<br>筛选回收：对各个Region的回收价值和成本进行排序，根据期望的停顿时间制定回收策略。</p>
 
       
     </div>
@@ -281,13 +312,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/">nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）</a></p>
+        <p><span>本文标题:</span><a  href="/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/">JVM（二）垃圾收集</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
-        <p><span>发布时间:</span>2020年05月12日 - 16时39分</p>
-        <p><span>最后更新:</span>2020年05月12日 - 16时39分</p>
+        <p><span>发布时间:</span>2020年07月21日 - 16时57分</p>
+        <p><span>最后更新:</span>2020年07月21日 - 16时57分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/" title="nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）">http://www.xshf1996.cn/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/　　作者: Mr.xu" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" title="JVM（二）垃圾收集">http://www.xshf1996.cn/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/　　作者: Mr.xu" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -298,18 +329,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Mysql函数group_concat、find_in_set进行数据库字段值翻译
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">springboot整合ldap实现AD域认证</div>
+    <a  href="/2020/07/06/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">KMP字符串模式匹配算法解析</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -321,7 +343,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#判断是否垃圾"><span class="toc-number">1.</span> <span class="toc-text">判断是否垃圾</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#引用计数"><span class="toc-number">1.1.</span> <span class="toc-text">引用计数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可达性分析"><span class="toc-number">1.2.</span> <span class="toc-text">可达性分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引用类型"><span class="toc-number">1.3.</span> <span class="toc-text">引用类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#finalize（）拯救对象"><span class="toc-number">1.4.</span> <span class="toc-text">finalize（）拯救对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法区的回收"><span class="toc-number">1.5.</span> <span class="toc-text">方法区的回收</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#垃圾收集算法"><span class="toc-number">2.</span> <span class="toc-text">垃圾收集算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#标记清除"><span class="toc-number">2.1.</span> <span class="toc-text">标记清除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标记复制"><span class="toc-number">2.2.</span> <span class="toc-text">标记复制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标记整理"><span class="toc-number">2.3.</span> <span class="toc-text">标记整理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#垃圾收集器"><span class="toc-number">3.</span> <span class="toc-text">垃圾收集器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Serial收集器"><span class="toc-number">3.1.</span> <span class="toc-text">Serial收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ParNew收集器"><span class="toc-number">3.2.</span> <span class="toc-text">ParNew收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parallel-Scavenge收集器"><span class="toc-number">3.3.</span> <span class="toc-text">Parallel Scavenge收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SerialOld-收集器"><span class="toc-number">3.4.</span> <span class="toc-text">SerialOld 收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parallel-Old收集器"><span class="toc-number">3.5.</span> <span class="toc-text">Parallel Old收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CMS-收集器"><span class="toc-number">3.6.</span> <span class="toc-text">CMS 收集器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G1收集器"><span class="toc-number">3.7.</span> <span class="toc-text">G1收集器</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -394,13 +416,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/" title="上一篇: Mysql函数group_concat、find_in_set进行数据库字段值翻译">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/" title="下一篇: springboot整合ldap实现AD域认证">
+            <a  href="/2020/07/06/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/" title="下一篇: KMP字符串模式匹配算法解析">
                 <i class="fa fa-angle-right"></i>
             </a>
         
