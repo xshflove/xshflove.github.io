@@ -7,22 +7,23 @@
   
   
   
-  <title>反转链表 | 海安养猪场</title>
+  <title>zookeeper基本命令、java应用 | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="123456789101112131415161718192021222324252627&#x2F;** * Definition for singly-linked list. * public class ListNode &amp;#123; *     int val; *     ListNode next; *     ListNode(int x) &amp;#123; val &#x3D; x; &amp;#125;">
+  <meta name="description" content="基本命令创建  -e临时节点  -s顺序节点create (-e -s) path data 查询节点ls path 更新数据set path data 查询数据get -s pathdataversion在数据变化后会+1查看当前节点的角色是leader\follower.&#x2F;zkServer.sh status 删除，提供cas删除delete path [version] Java客户端引入依">
 <meta property="og:type" content="article">
-<meta property="og:title" content="反转链表">
-<meta property="og:url" content="http://www.xshf1996.cn/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/index.html">
+<meta property="og:title" content="zookeeper基本命令、java应用">
+<meta property="og:url" content="http://www.xshf1996.cn/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/index.html">
 <meta property="og:site_name" content="海安养猪场">
-<meta property="og:description" content="123456789101112131415161718192021222324252627&#x2F;** * Definition for singly-linked list. * public class ListNode &amp;#123; *     int val; *     ListNode next; *     ListNode(int x) &amp;#123; val &#x3D; x; &amp;#125;">
+<meta property="og:description" content="基本命令创建  -e临时节点  -s顺序节点create (-e -s) path data 查询节点ls path 更新数据set path data 查询数据get -s pathdataversion在数据变化后会+1查看当前节点的角色是leader\follower.&#x2F;zkServer.sh status 删除，提供cas删除delete path [version] Java客户端引入依">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200628174954617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMubGVldGNvZGUtY24uY29tLzljZTI2YTcwOTE0N2FkOWNlNjE1MmQ2MDRlZmMxY2MxOWEzM2RjNWQ0NjdlZDJhYWU1YmM2ODQ2M2ZkZDI4ODguZ2lm">
-<meta property="article:published_time" content="2020-06-28T09:53:56.988Z">
-<meta property="article:modified_time" content="2020-06-28T09:53:57.028Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801093405762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801095403810.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801100958941.png">
+<meta property="article:published_time" content="2020-08-01T02:33:56.972Z">
+<meta property="article:modified_time" content="2020-08-01T02:33:57.012Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200628174954617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200801093405762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -235,11 +236,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-反转链表" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-zookeeper基本命令、java应用" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="article-date">
-      <time datetime="2020-06-28T09:53:56.988Z" itemprop="datePublished">2020-06-28</time>
+      <a  href="/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/" class="article-date">
+      <time datetime="2020-08-01T02:33:56.972Z" itemprop="datePublished">2020-08-01</time>
 </a>
 
     </div>
@@ -253,7 +254,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      反转链表
+      zookeeper基本命令、java应用
     </h1>
   
 
@@ -262,10 +263,6 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8%E5%8F%8C%E6%8C%87%E9%92%88/">链表双指针</a>
-    </div>
-
 
         
         <div class="clearfix"></div>
@@ -275,10 +272,27 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="https://img-blog.csdnimg.cn/20200628174954617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMubGVldGNvZGUtY24uY29tLzljZTI2YTcwOTE0N2FkOWNlNjE1MmQ2MDRlZmMxY2MxOWEzM2RjNWQ0NjdlZDJhYWU1YmM2ODQ2M2ZkZDI4ODguZ2lm" alt="在这里插入图片描述"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode pre = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        ListNode temp = <span class="keyword">null</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</span><br><span class="line">            </span><br><span class="line">            temp = cur.next;</span><br><span class="line">            <span class="comment">// 最后一个节点的next是null</span></span><br><span class="line">            cur.next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            </span><br><span class="line">            cur = temp;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><p>创建  -e临时节点  -s顺序节点<br>create (-e -s) path data</p>
+<p>查询节点<br>ls path</p>
+<p>更新数据<br>set path data</p>
+<p>查询数据<br>get -s path<br>dataversion在数据变化后会+1<br><img src="https://img-blog.csdnimg.cn/20200801093405762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看当前节点的角色是leader\follower<br>./zkServer.sh status</p>
+<p>删除，提供cas删除<br>delete path [version]</p>
+<h2 id="Java客户端"><a href="#Java客户端" class="headerlink" title="Java客户端"></a>Java客户端</h2><h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;3.5.3-beta&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
+<h3 id="权限ACL"><a href="#权限ACL" class="headerlink" title="权限ACL"></a>权限ACL</h3><p>通过ACL可以对节点访问进行权限控制</p>
+<p>使用zkCli时，ACL的格式由<schema>:<id>:<acl>三段组成。<br>schema：可以取下列值：world, auth, digest, host/ip<br>id： 标识身份，值依赖于schema做解析。<br>acl：就是权限：cdwra分别表示create, delete,write,read, admin</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ZooKeeper zooKeeper = <span class="keyword">new</span> ZooKeeper(<span class="string">"192.168.97.139:2181,192.168.97.123:2181,192.168.97.119"</span>,</span><br><span class="line">        <span class="number">5000</span>, <span class="keyword">new</span> Watcher() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(WatchedEvent watchedEvent)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"哈哈"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">zooKeeper.addAuthInfo(<span class="string">"digest"</span>,<span class="string">"foo:true"</span>.getBytes());</span><br><span class="line">System.out.println(zooKeeper.getState());</span><br><span class="line">String path = zooKeeper.create(<span class="string">"/testacl2"</span>,<span class="string">"hhajava"</span>.getBytes(), ZooDefs.Ids.CREATOR_ALL_ACL, CreateMode.PERSISTENT);</span><br></pre></td></tr></table></figure>
+<p>连接zookeeper后，通过zookeeper.addAuthInfo给这个客户端加上一个信息。然后创建节点，注意ZooDefs.Ids.CREATOR_ALL_ACL代表是拥有权限才能够访问。<br><img src="https://img-blog.csdnimg.cn/20200801095403810.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>第一次访问该节点报错，通过addauth 加入权限认证，第二次访问就能够获取到数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 1、同步创建节点</span></span><br><span class="line">String path = zooKeeper.create(<span class="string">"/java"</span>,<span class="string">"hhajava"</span>.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);<span class="comment">//持久化节点</span></span><br><span class="line"> System.out.println(path);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 2、删除节点 version 对应 get -s path的 dataversion</span></span><br><span class="line">zooKeeper.delete(<span class="string">"/java"</span>,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>部分方法中，可以传入watcher。它提供了一种机制，当watch的节点发生变化，客户端将会收到watch的信息。分布式锁也是基于这种反馈机制。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 4、获取子节点</span></span><br><span class="line">            List&lt;String&gt; list = zooKeeper.getChildren(<span class="string">"/java"</span>, <span class="keyword">new</span> Watcher() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(WatchedEvent watchedEvent)</span> </span>&#123;</span><br><span class="line">                    System.out.println(<span class="string">"节点产生变化"</span>+watchedEvent.getPath());</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">for</span> (String a :list)&#123;</span><br><span class="line">                System.out.println(a);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 获取节点数据</span></span><br><span class="line">            <span class="keyword">byte</span>[] data1 = zooKeeper.getData(<span class="string">"/java"</span>, <span class="keyword">new</span> Watcher() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(WatchedEvent watchedEvent)</span> </span>&#123;</span><br><span class="line">                    System.out.println(watchedEvent.getPath()+<span class="string">"数据改变"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="keyword">new</span> Stat());</span><br><span class="line">            System.out.println(<span class="keyword">new</span> String(data1));</span><br><span class="line"></span><br><span class="line"><span class="comment">//            // 更新节点数据</span></span><br><span class="line">            zooKeeper.setData(<span class="string">"/java"</span>,<span class="string">"31231"</span>.getBytes(),<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Curator客户端框架"><a href="#Curator客户端框架" class="headerlink" title="Curator客户端框架"></a>Curator客户端框架</h2><h3 id="引入依赖-1"><a href="#引入依赖-1" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.curator&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;curator-framework&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.0.1&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">&lt;!--        提供分布式锁实现--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.curator&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;curator-recipes&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.0.1&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、创建节点</span></span><br><span class="line">          CuratorFramework client =  CuratorFrameworkFactory.builder()</span><br><span class="line">                  .connectString(<span class="string">"192.168.97.139:2181"</span>)</span><br><span class="line">                .sessionTimeoutMs(<span class="number">5555</span>)</span><br><span class="line">                .retryPolicy(<span class="keyword">new</span> RetryOneTime(<span class="number">111</span>))</span><br><span class="line">                .build();</span><br><span class="line">        client.start();</span><br><span class="line"><span class="comment">//        client.create().forPath("/curator","test".getBytes());</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 全局id</span></span><br><span class="line">        String path = client.create().withMode(CreateMode.PERSISTENT_SEQUENTIAL).forPath(<span class="string">"/quanjuid"</span>,<span class="string">"222"</span>.getBytes());</span><br><span class="line">        System.out.println(path);</span><br><span class="line">        <span class="comment">// 2、分布式锁</span></span><br><span class="line">        InterProcessMutex lock = <span class="keyword">new</span> InterProcessMutex(client,<span class="string">"/lock"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ;i &lt;<span class="number">30</span>;i++)&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        lock.acquire();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.println(<span class="string">"a的值-------------"</span>+a);</span><br><span class="line">                    a++;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        lock.release();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>全局id 主要利用了顺序节点会自动在创建节点后添加序号<br><img src="https://img-blog.csdnimg.cn/20200801100958941.png" alt="在这里插入图片描述"><br>分布式锁只要利用了临时有序节点特性和watch机制。针对读请求，查询之前的节点没有写请求就可以共享。针对写请求，当写请求是第一个节点才会获得锁。每个节点watch前一个节点，避免羊群效应（当锁释放，多个请求同时去争抢创建节点）。因为是临时节点，当客户端占用锁时失去连接也就会删除这个节点释放锁。</p>
 
       
     </div>
@@ -287,13 +301,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">反转链表</a></p>
+        <p><span>本文标题:</span><a  href="/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/">zookeeper基本命令、java应用</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
-        <p><span>发布时间:</span>2020年06月28日 - 17时53分</p>
-        <p><span>最后更新:</span>2020年06月28日 - 17时53分</p>
+        <p><span>发布时间:</span>2020年08月01日 - 10时33分</p>
+        <p><span>最后更新:</span>2020年08月01日 - 10时33分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="反转链表">http://www.xshf1996.cn/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/　　作者: Mr.xu" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/" title="zookeeper基本命令、java应用">http://www.xshf1996.cn/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/　　作者: Mr.xu" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -304,18 +318,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/07/01/springboot+prometheus+grafana%E6%90%AD%E5%BB%BA%E5%BA%94%E7%94%A8%E7%9B%91%E6%8E%A7/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          springboot+prometheus+grafana搭建应用监控
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">两数相加</div>
+    <a  href="/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">zookeeper集群搭建</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -327,7 +332,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本命令"><span class="toc-number">1.</span> <span class="toc-text">基本命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java客户端"><span class="toc-number">2.</span> <span class="toc-text">Java客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引入依赖"><span class="toc-number">2.1.</span> <span class="toc-text">引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#权限ACL"><span class="toc-number">2.2.</span> <span class="toc-text">权限ACL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Curator客户端框架"><span class="toc-number">3.</span> <span class="toc-text">Curator客户端框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引入依赖-1"><span class="toc-number">3.1.</span> <span class="toc-text">引入依赖</span></a></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -400,13 +405,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/07/01/springboot+prometheus+grafana%E6%90%AD%E5%BB%BA%E5%BA%94%E7%94%A8%E7%9B%91%E6%8E%A7/" title="上一篇: springboot+prometheus+grafana搭建应用监控">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" title="下一篇: 两数相加">
+            <a  href="/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" title="下一篇: zookeeper集群搭建">
                 <i class="fa fa-angle-right"></i>
             </a>
         

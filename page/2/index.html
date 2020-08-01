@@ -233,6 +233,77 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-多线程(二) volatile" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/05/28/%E5%A4%9A%E7%BA%BF%E7%A8%8B(%E4%BA%8C)%20volatile/" class="article-date">
+      <time datetime="2020-05-28T07:24:11.498Z" itemprop="datePublished">2020-05-28</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/05/28/%E5%A4%9A%E7%BA%BF%E7%A8%8B(%E4%BA%8C)%20volatile/">多线程(二) volatile</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="硬件层面并发效率问题"><a href="#硬件层面并发效率问题" class="headerlink" title="硬件层面并发效率问题"></a>硬件层面并发效率问题</h1><p>CPU并发执行虽然能提升运行效率但受限于CPU、内存、存储设备之间的速度差异。因此通过引入高速缓存来为CPU、内存做缓冲，CPU从高速缓存中获取计算数据，完成计算后数据再由高速缓存更新到内存。</p>
+<p>高速缓存的引入带来新的问题：缓存一致性。多个cpu都有缓存，当它们都去缓存共享内存中同一片数据就可能发生不一致的情况（cpuA更新缓存并同步至共享内存，cpuB依然使用之前的脏数据）。硬件层面设计了缓存一致性协议如MESI（通过改变cpu本身缓存数据的状态，并监控其他cpu的缓存状态）。</p>
+<h1 id="java内存模型（JMM）"><a href="#java内存模型（JMM）" class="headerlink" title="java内存模型（JMM）"></a>java内存模型（JMM）</h1><p>java内存模型规定所有的变量都在主内存中，每个线程都有各自的工作内存。线程操作变量首先要将主内存的数据复制到工作内存中来进行计算。线程间数据值的传递也要通过主内存。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200527220447652.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>内存模型定义了原子性操作lock、unlock、read、load、use、assign、store、write。并规定了内存访问安全的场景。</p>
+<h1 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h1><p>volatile是轻量级的同步机制，它解决了线程安全的可见性、有序性问题，并没有解决原子性。</p>
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>修改volatile变量时，底层指令会加上lock指令。所以变量的值会立即更新至主内存，其他线程工作内存中保存的脏数据失效。</p>
+<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><p>根据as-if-serial（单线程下执行结果结果相同）<br>cpu在不影响程序最终结果（不存在数据依赖）的前提下，可能会将指令重排序。<br>int x = 1;<br>int y = 2;<br>int z = x;<br>虽然在代码中x的赋值在y之前，但第三行紧接着又用到了x。处理器就可能调换赋值x、y的顺序，以此来提示效率。</p>
+<h3 id="重排序在多线程下的问题"><a href="#重排序在多线程下的问题" class="headerlink" title="重排序在多线程下的问题"></a>重排序在多线程下的问题</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    a = <span class="number">1</span>;                   <span class="comment">//1</span></span><br><span class="line">    flag = <span class="keyword">true</span>;             <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function">Public <span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (flag) &#123;                <span class="comment">//3</span></span><br><span class="line">        <span class="keyword">int</span> i =  a * a;        <span class="comment">//4</span></span><br><span class="line">        ……</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>线程A执行writer(),线程B执行reader()。操作1、操作2不存在依赖，就可能发生重排序导致操作2先执行，那么线程B实际读到的a = 0。</p>
+<p>volatile修饰的变量会加入内存屏障来保障不会进行指令重排序。<br><img src="https://img-blog.csdnimg.cn/20200528145922799.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-算法-动态规划（斐波那契_青蛙跳台阶_01背包）" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
