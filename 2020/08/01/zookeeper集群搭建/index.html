@@ -7,21 +7,21 @@
   
   
   
-  <title>两数相加 | 海安养猪场</title>
+  <title>zookeeper集群搭建 | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445&#x2F;** * Definition for singly-linked list. * public class ListNode &amp;#123; *     int val; *     ListNode next; *     List">
+  <meta name="description" content="集群模式1、解压缩安装包后，将conf目录下的zoo_sample.cfg复制一份更名为zoo.cfg，并对其进行配置。配置dataDir存放文件。集群关系通过server.id &#x3D; ip : port1: port2的形式配置 三个端口的含义：clientPort&#x3D;2181表示客户端访问端口。2888 leader节点和follower通信端口。3888 leader选举通信端口。2、在上面配置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="两数相加">
-<meta property="og:url" content="http://www.xshf1996.cn/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/index.html">
+<meta property="og:title" content="zookeeper集群搭建">
+<meta property="og:url" content="http://www.xshf1996.cn/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="海安养猪场">
-<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445&#x2F;** * Definition for singly-linked list. * public class ListNode &amp;#123; *     int val; *     ListNode next; *     List">
+<meta property="og:description" content="集群模式1、解压缩安装包后，将conf目录下的zoo_sample.cfg复制一份更名为zoo.cfg，并对其进行配置。配置dataDir存放文件。集群关系通过server.id &#x3D; ip : port1: port2的形式配置 三个端口的含义：clientPort&#x3D;2181表示客户端访问端口。2888 leader节点和follower通信端口。3888 leader选举通信端口。2、在上面配置">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200618142908959.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-06-18T06:32:21.370Z">
-<meta property="article:modified_time" content="2020-06-18T06:32:21.410Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200801081716845.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-08-01T00:38:20.727Z">
+<meta property="article:modified_time" content="2020-08-01T00:38:20.764Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200618142908959.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200801081716845.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -234,11 +234,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-两数相加" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-zookeeper集群搭建" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" class="article-date">
-      <time datetime="2020-06-18T06:32:21.370Z" itemprop="datePublished">2020-06-18</time>
+      <a  href="/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="article-date">
+      <time datetime="2020-08-01T00:38:20.727Z" itemprop="datePublished">2020-08-01</time>
 </a>
 
     </div>
@@ -252,7 +252,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      两数相加
+      zookeeper集群搭建
     </h1>
   
 
@@ -261,10 +261,6 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-    </div>
-
 
         
         <div class="clearfix"></div>
@@ -274,9 +270,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="https://img-blog.csdnimg.cn/20200618142908959.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 进位标志</span></span><br><span class="line">        <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp2 = <span class="number">0</span>;</span><br><span class="line">        ListNode res = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode tem = res;</span><br><span class="line">        <span class="comment">// l1、l2不全为空条件</span></span><br><span class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span> || l2 != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 为空就为0</span></span><br><span class="line">            temp1 = (l1 == <span class="keyword">null</span>)? <span class="number">0</span> : l1.val;</span><br><span class="line">            temp2 = (l2 == <span class="keyword">null</span>)? <span class="number">0</span> : l2.val;</span><br><span class="line">            <span class="comment">// 计算加上进位</span></span><br><span class="line">            sum = temp1 + temp2 + flag;</span><br><span class="line">            <span class="comment">// 求和后，重置进位标志</span></span><br><span class="line">            flag = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">// sum大于10则进位</span></span><br><span class="line">            <span class="keyword">if</span>(sum &gt;= <span class="number">10</span>)&#123;</span><br><span class="line">                flag = <span class="number">1</span>;</span><br><span class="line">                sum = sum -<span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res.next = <span class="keyword">new</span> ListNode(sum);</span><br><span class="line">            res = res.next;</span><br><span class="line">            <span class="comment">// 三元运算避免空指针</span></span><br><span class="line">            l1 = (l1 == <span class="keyword">null</span>)? <span class="keyword">null</span> :l1.next;</span><br><span class="line">            l2 = (l2 == <span class="keyword">null</span>)? <span class="keyword">null</span>:l2.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当出现5 ，5时 计算结果不为10 而为0 ，循环结束没有考虑进位标志</span></span><br><span class="line">        <span class="keyword">if</span>(flag == <span class="number">1</span>)&#123;</span><br><span class="line">            res.next = <span class="keyword">new</span> ListNode(flag);</span><br><span class="line">            res = res.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tem.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+        <h2 id="集群模式"><a href="#集群模式" class="headerlink" title="集群模式"></a>集群模式</h2><p>1、解压缩安装包后，将conf目录下的zoo_sample.cfg复制一份更名为zoo.cfg，并对其进行配置。配置dataDir存放文件。<br>集群关系通过server.id = ip : port1: port2的形式配置</p>
+<p>三个端口的含义：<br>clientPort=2181表示客户端访问端口。<br>2888 leader节点和follower通信端口。<br>3888 leader选举通信端口。<br><img src="https://img-blog.csdnimg.cn/20200801081716845.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、在上面配置的dataDir目录创建空白文件myid,内容为id也就是配置中每台机器对应的id.</p>
+<p>3、通过bin/zkServer.sh启动，通过bin/zkCli.sh访问</p>
+<h2 id="伪集群模式"><a href="#伪集群模式" class="headerlink" title="伪集群模式"></a>伪集群模式</h2><p>单台机器只需要将配置的节点信息改成<br>server.1=192.168.97.119:2888:3888<br>server.2=192.168.97.119:2889:3889<br>server.3=192.168.97.119:2887:3887</p>
 
       
     </div>
@@ -285,13 +282,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">两数相加</a></p>
+        <p><span>本文标题:</span><a  href="/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">zookeeper集群搭建</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
-        <p><span>发布时间:</span>2020年06月18日 - 14时32分</p>
-        <p><span>最后更新:</span>2020年06月18日 - 14时32分</p>
+        <p><span>发布时间:</span>2020年08月01日 - 08时38分</p>
+        <p><span>最后更新:</span>2020年08月01日 - 08时38分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" title="两数相加">http://www.xshf1996.cn/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/　　作者: Mr.xu" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" title="zookeeper集群搭建">http://www.xshf1996.cn/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/　　作者: Mr.xu" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -302,18 +299,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          反转链表
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2020/06/17/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">相交链表</div>
+    <a  href="/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM（二）垃圾收集</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -325,7 +313,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#集群模式"><span class="toc-number">1.</span> <span class="toc-text">集群模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#伪集群模式"><span class="toc-number">2.</span> <span class="toc-text">伪集群模式</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -398,13 +386,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" title="上一篇: 反转链表">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2020/06/17/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/" title="下一篇: 相交链表">
+            <a  href="/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" title="下一篇: JVM（二）垃圾收集">
                 <i class="fa fa-angle-right"></i>
             </a>
         
