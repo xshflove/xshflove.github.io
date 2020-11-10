@@ -233,6 +233,77 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-SparkStreaming+Kafka实现wordcount" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/11/10/SparkStreaming+Kafka%E5%AE%9E%E7%8E%B0wordcount/" class="article-date">
+      <time datetime="2020-11-10T07:13:26.415Z" itemprop="datePublished">2020-11-10</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/11/10/SparkStreaming+Kafka%E5%AE%9E%E7%8E%B0wordcount/">SparkStreaming+Kafka实现wordcount</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>使用sparkStreaming消费kafka消息</p>
+<h2 id="scala消费端"><a href="#scala消费端" class="headerlink" title="scala消费端"></a>scala消费端</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-core_2.12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-sql_2.12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-streaming_2.12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka-0-10 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-streaming-kafka-0-10_2.12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.kafka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>kafka-clients<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">KafkaStreaming</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> brokers = <span class="string">"10.0.0.81:9092"</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> topic = <span class="string">"spark-streaming1"</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> group = <span class="string">"kafkaStreamingTest"</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> sparkConf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"11"</span>)</span><br><span class="line">    <span class="comment">// 间隔60s</span></span><br><span class="line">    <span class="keyword">val</span> scc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(sparkConf,<span class="type">Seconds</span>(<span class="number">60</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> kafkaParams = <span class="type">Map</span>(<span class="type">ConsumerConfig</span>.<span class="type">BOOTSTRAP_SERVERS_CONFIG</span> -&gt; brokers,</span><br><span class="line">      <span class="type">ConsumerConfig</span>.<span class="type">KEY_DESERIALIZER_CLASS_CONFIG</span> -&gt; classOf[<span class="type">StringDeserializer</span>],</span><br><span class="line">      <span class="type">ConsumerConfig</span>.<span class="type">VALUE_DESERIALIZER_CLASS_CONFIG</span> -&gt; classOf[<span class="type">StringDeserializer</span>],</span><br><span class="line">      <span class="type">ConsumerConfig</span>.<span class="type">GROUP_ID_CONFIG</span> -&gt; group)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> stream  = <span class="type">KafkaUtils</span>.createDirectStream(scc,<span class="type">LocationStrategies</span>.<span class="type">PreferConsistent</span>,<span class="type">ConsumerStrategies</span>.<span class="type">Subscribe</span>[<span class="type">String</span>,<span class="type">String</span>](<span class="type">List</span>(topic), kafkaParams))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> value = stream.map(record =&gt;&#123;</span><br><span class="line">      record.value()</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">val</span> res = value.flatMap(_.split(<span class="string">" "</span>)).map(va =&gt; (va,<span class="number">1</span>)).reduceByKey(_+_)</span><br><span class="line">    res.print()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    scc.start()</span><br><span class="line">    scc.awaitTermination()</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="java发送端"><a href="#java发送端" class="headerlink" title="java发送端"></a>java发送端</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.kafka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-kafka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Produce</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,<span class="string">"10.0.0.81:9092"</span>);</span><br><span class="line">        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer<span class="class">.<span class="keyword">class</span>.<span class="title">getName</span>())</span>;</span><br><span class="line">        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer<span class="class">.<span class="keyword">class</span>.<span class="title">getName</span>())</span>;</span><br><span class="line">        properties.put(ProducerConfig.CLIENT_ID_CONFIG,<span class="string">"kafkaStreamingTest"</span>);</span><br><span class="line">        KafkaProducer producer = <span class="keyword">new</span> KafkaProducer(properties);</span><br><span class="line"></span><br><span class="line">        ProducerRecord record = <span class="keyword">new</span> ProducerRecord(<span class="string">"spark-streaming1"</span>, <span class="string">"aa aa a b"</span>);</span><br><span class="line">        ProducerRecord record1 = <span class="keyword">new</span> ProducerRecord(<span class="string">"spark-streaming1"</span>, <span class="string">"a b c"</span>);</span><br><span class="line">        producer.send(record).get();</span><br><span class="line">        producer.send(record1).get();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>每60秒汇总输出<br><img src="https://img-blog.csdnimg.cn/20201110143047675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>消费端配置log4j.properties,减少spark log 输出。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Global</span> <span class="string">logging</span> <span class="string">configuration</span></span><br><span class="line"><span class="string">log4j.rootLogger=WARN,</span> <span class="string">stdout</span></span><br><span class="line"><span class="string">Console</span> <span class="string">output...</span></span><br><span class="line"><span class="string">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span></span><br><span class="line"><span class="string">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="string">log4j.appender.stdout.layout.ConversionPattern=%5p</span> <span class="string">[%t]</span> <span class="bullet">-</span> <span class="string">%m%n</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Hadoop案例wordCount执行流程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -890,90 +961,9 @@
 
 
   
-    <article id="post-JVM(一)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/06/08/JVM(%E4%B8%80)/" class="article-date">
-      <time datetime="2020-06-08T09:07:46.036Z" itemprop="datePublished">2020-06-08</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/06/08/JVM(%E4%B8%80)/">JVM(一)</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h1 id="JDK、JRE联系"><a href="#JDK、JRE联系" class="headerlink" title="JDK、JRE联系"></a>JDK、JRE联系</h1><p>JDK包含了JRE<br><img src="https://img-blog.csdnimg.cn/20200608161532220.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200608161614218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h1><p>首先编写的源码文件，也就是后缀为.java文件。会经过源码编译器，编译成.class文件。再通过类加载器classLoader加载进JVM虚拟机。<br><img src="https://img-blog.csdnimg.cn/20200608162031663.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>JVM类加载机制主要分为加载、连接、初始化等阶段。<br><img src="https://img-blog.csdnimg.cn/20200608162137709.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h2><p>加载过程主要是：<br>（1）通过类的全限定类名获取此类的二进制流。<br>（2）根据二进制流，在JVM的方法区保存类的信息。<br>（3）在堆中创建class对象，指向方法区类元信息。</p>
-<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><h3 id="校验"><a href="#校验" class="headerlink" title="校验"></a>校验</h3><p>确保加载的二进制流，符合JVM数据要求。</p>
-<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>为静态变量开辟内存空间并初始化</p>
-<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>将类中的符号引用转换为直接引用。符号引用类似占位符，没有实际意义。</p>
-<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>为类中的静态变量、静态代码进行初始化操作</p>
-<h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><p><img src="https://img-blog.csdnimg.cn/20200608163538796.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="加载原则-双亲委派"><a href="#加载原则-双亲委派" class="headerlink" title="加载原则 双亲委派"></a>加载原则 双亲委派</h2><p>当一个类加载器收到类加载请求时，会将请求转给它的上一级类加载器。如果最上级的类加载器不加载，才会由下面的加载器进行加载。<br>双亲委派机制保证了类加载的唯一性。</p>
-<p>ClassLoader的loadClass方法提供了双亲委派加载的实现。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="keyword">boolean</span> resolve)</span><br><span class="line">        <span class="keyword">throws</span> ClassNotFoundException</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (getClassLoadingLock(name)) &#123;</span><br><span class="line">            <span class="comment">// First, check if the class has already been loaded</span></span><br><span class="line">            Class&lt;?&gt; c = findLoadedClass(name);</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">long</span> t0 = System.nanoTime();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (parent != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        c = parent.loadClass(name, <span class="keyword">false</span>);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        c = findBootstrapClassOrNull(name);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                    <span class="comment">// ClassNotFoundException thrown if class not found</span></span><br><span class="line">                    <span class="comment">// from the non-null parent class loader</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// If still not found, then invoke findClass in order</span></span><br><span class="line">                    <span class="comment">// to find the class.</span></span><br><span class="line">                    <span class="keyword">long</span> t1 = System.nanoTime();</span><br><span class="line">                    c = findClass(name);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// this is the defining class loader; record the stats</span></span><br><span class="line">                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</span><br><span class="line">                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</span><br><span class="line">                    sun.misc.PerfCounter.getFindClasses().increment();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (resolve) &#123;</span><br><span class="line">                resolveClass(c);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> c;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="破坏双亲委派"><a href="#破坏双亲委派" class="headerlink" title="破坏双亲委派"></a>破坏双亲委派</h3><p><a href="https://www.sohu.com/a/334000357_505800" target="_blank" rel="noopener">https://www.sohu.com/a/334000357_505800</a></p>
-<h1 id="JVM运行时数据结构"><a href="#JVM运行时数据结构" class="headerlink" title="JVM运行时数据结构"></a>JVM运行时数据结构</h1><p><img src="https://img-blog.csdnimg.cn/20200608165448630.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>方法区是所有线程共享的。主要存储类元信息、常量、静态变量。方法区中有常量池。</p>
-<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>存储实例对象、数组数据。所有线程共享。</p>
-<h2 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h2><p>虚拟机栈线程私有，线程每次调用方法，就会有一个该方法的栈帧入虚拟机栈，在方法调用完成后出栈。</p>
-<p>一个栈帧由局部变量表、操作数栈、动态链接、方法返回地址组成。<br>局部变量表：对应了方法的入参，还有方法体中定义的变量。<br>操作数栈：对于数据的操作，都是在操作数栈中完成。<br>动态连接: 指向所调用方法的引用。</p>
-<p><img src="https://img-blog.csdnimg.cn/20200608170317618.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>记录线程上次执行指令的位置，用于线程切换后的恢复。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/JVM/">JVM</a>
-    </div>
-
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
