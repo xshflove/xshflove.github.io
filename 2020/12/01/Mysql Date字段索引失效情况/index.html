@@ -7,19 +7,22 @@
   
   
   
-  <title>test | 海安养猪场</title>
+  <title>Mysql Date字段索引失效情况 | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="xxxxs adas dsad s d ad s as  YSNB">
+  <meta name="description" content="单表总记录5000W,当查询条件可能涉及的记录数达到五分之一时，放弃走索引搜索走全表查询。 1、大于2020-10-28的记录数大致在800W，使用到索引。 2、查询条件改为2020-10-25,执行计划显示未使用索引">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="http://www.xshf1996.cn/2020/05/15/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/index.html">
+<meta property="og:title" content="Mysql Date字段索引失效情况">
+<meta property="og:url" content="http://www.xshf1996.cn/2020/12/01/Mysql%20Date%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5/index.html">
 <meta property="og:site_name" content="海安养猪场">
-<meta property="og:description" content="xxxxs adas dsad s d ad s as  YSNB">
+<meta property="og:description" content="单表总记录5000W,当查询条件可能涉及的记录数达到五分之一时，放弃走索引搜索走全表查询。 1、大于2020-10-28的记录数大致在800W，使用到索引。 2、查询条件改为2020-10-25,执行计划显示未使用索引">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-15T10:03:18.640Z">
-<meta property="article:modified_time" content="2020-05-15T10:03:18.640Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201201143551672.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201201143811769.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-12-01T07:12:01.248Z">
+<meta property="article:modified_time" content="2020-12-01T07:12:01.282Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201201143551672.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -232,11 +235,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-xxxxs adas dsad s d ad s as" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Mysql Date字段索引失效情况" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/05/15/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" class="article-date">
-      <time datetime="2020-05-15T10:03:18.640Z" itemprop="datePublished">2020-05-15</time>
+      <a  href="/2020/12/01/Mysql%20Date%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5/" class="article-date">
+      <time datetime="2020-12-01T07:12:01.248Z" itemprop="datePublished">2020-12-01</time>
 </a>
 
     </div>
@@ -250,7 +253,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      test
+      Mysql Date字段索引失效情况
     </h1>
   
 
@@ -259,10 +262,6 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/ceshi/">ceshi</a>
-    </div>
-
 
         
         <div class="clearfix"></div>
@@ -272,8 +271,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>xxxxs adas dsad s d ad s as </p>
-<p>YSNB</p>
+        <p>单表总记录5000W,当查询条件可能涉及的记录数达到五分之一时，放弃走索引搜索走全表查询。</p>
+<p>1、大于2020-10-28的记录数大致在800W，使用到索引。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201201143551672.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、查询条件改为2020-10-25,执行计划显示未使用索引<br><img src="https://img-blog.csdnimg.cn/20201201143811769.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -282,13 +282,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/05/15/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/">test</a></p>
+        <p><span>本文标题:</span><a  href="/2020/12/01/Mysql%20Date%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5/">Mysql Date字段索引失效情况</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
-        <p><span>发布时间:</span>2020年05月15日 - 18时03分</p>
-        <p><span>最后更新:</span>2020年05月15日 - 18时03分</p>
+        <p><span>发布时间:</span>2020年12月01日 - 15时12分</p>
+        <p><span>最后更新:</span>2020年12月01日 - 15时12分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/05/15/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/" title="test">http://www.xshf1996.cn/2020/05/15/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/05/15/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/　　作者: Mr.xu" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/12/01/Mysql%20Date%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5/" title="Mysql Date字段索引失效情况">http://www.xshf1996.cn/2020/12/01/Mysql%20Date%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/12/01/Mysql%20Date%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5/　　作者: Mr.xu" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -299,18 +299,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/05/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          多线程（一）
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">wait()、notify()多线程交替输出</div>
+    <a  href="/2020/11/10/SparkStreaming+Kafka%E5%AE%9E%E7%8E%B0wordcount/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SparkStreaming+Kafka实现wordcount</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -395,13 +386,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/05/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/" title="上一篇: 多线程（一）">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/" title="下一篇: wait()、notify()多线程交替输出">
+            <a  href="/2020/11/10/SparkStreaming+Kafka%E5%AE%9E%E7%8E%B0wordcount/" title="下一篇: SparkStreaming+Kafka实现wordcount">
                 <i class="fa fa-angle-right"></i>
             </a>
         
