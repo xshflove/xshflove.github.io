@@ -233,64 +233,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-11" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/12/08/11/" class="article-date">
-      <time datetime="2020-12-08T04:09:57.167Z" itemprop="datePublished">2020-12-08</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/12/08/11/">11</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>李傲坏人</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-Mysql Date字段索引失效情况" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -951,6 +893,70 @@
 
 
   
+    <article id="post-两数相加" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" class="article-date">
+      <time datetime="2020-06-18T06:32:21.370Z" itemprop="datePublished">2020-06-18</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">两数相加</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="https://img-blog.csdnimg.cn/20200618142908959.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 进位标志</span></span><br><span class="line">        <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp2 = <span class="number">0</span>;</span><br><span class="line">        ListNode res = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode tem = res;</span><br><span class="line">        <span class="comment">// l1、l2不全为空条件</span></span><br><span class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span> || l2 != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 为空就为0</span></span><br><span class="line">            temp1 = (l1 == <span class="keyword">null</span>)? <span class="number">0</span> : l1.val;</span><br><span class="line">            temp2 = (l2 == <span class="keyword">null</span>)? <span class="number">0</span> : l2.val;</span><br><span class="line">            <span class="comment">// 计算加上进位</span></span><br><span class="line">            sum = temp1 + temp2 + flag;</span><br><span class="line">            <span class="comment">// 求和后，重置进位标志</span></span><br><span class="line">            flag = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">// sum大于10则进位</span></span><br><span class="line">            <span class="keyword">if</span>(sum &gt;= <span class="number">10</span>)&#123;</span><br><span class="line">                flag = <span class="number">1</span>;</span><br><span class="line">                sum = sum -<span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res.next = <span class="keyword">new</span> ListNode(sum);</span><br><span class="line">            res = res.next;</span><br><span class="line">            <span class="comment">// 三元运算避免空指针</span></span><br><span class="line">            l1 = (l1 == <span class="keyword">null</span>)? <span class="keyword">null</span> :l1.next;</span><br><span class="line">            l2 = (l2 == <span class="keyword">null</span>)? <span class="keyword">null</span>:l2.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当出现5 ，5时 计算结果不为10 而为0 ，循环结束没有考虑进位标志</span></span><br><span class="line">        <span class="keyword">if</span>(flag == <span class="number">1</span>)&#123;</span><br><span class="line">            res.next = <span class="keyword">new</span> ListNode(flag);</span><br><span class="line">            res = res.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tem.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -962,7 +968,7 @@
     <div class="outer">
         <div id="footer-info">
             <div class="footer-left">
-                &copy; 2020 Mr.xu
+                &copy; 2021 Mr.xu
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank">Hexo &nbsp;&nbsp;</a>
