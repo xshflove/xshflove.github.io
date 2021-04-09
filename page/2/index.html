@@ -233,6 +233,70 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-两数相加" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" class="article-date">
+      <time datetime="2020-06-18T06:32:21.370Z" itemprop="datePublished">2020-06-18</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">两数相加</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="https://img-blog.csdnimg.cn/20200618142908959.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 进位标志</span></span><br><span class="line">        <span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp2 = <span class="number">0</span>;</span><br><span class="line">        ListNode res = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode tem = res;</span><br><span class="line">        <span class="comment">// l1、l2不全为空条件</span></span><br><span class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span> || l2 != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 为空就为0</span></span><br><span class="line">            temp1 = (l1 == <span class="keyword">null</span>)? <span class="number">0</span> : l1.val;</span><br><span class="line">            temp2 = (l2 == <span class="keyword">null</span>)? <span class="number">0</span> : l2.val;</span><br><span class="line">            <span class="comment">// 计算加上进位</span></span><br><span class="line">            sum = temp1 + temp2 + flag;</span><br><span class="line">            <span class="comment">// 求和后，重置进位标志</span></span><br><span class="line">            flag = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">// sum大于10则进位</span></span><br><span class="line">            <span class="keyword">if</span>(sum &gt;= <span class="number">10</span>)&#123;</span><br><span class="line">                flag = <span class="number">1</span>;</span><br><span class="line">                sum = sum -<span class="number">10</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res.next = <span class="keyword">new</span> ListNode(sum);</span><br><span class="line">            res = res.next;</span><br><span class="line">            <span class="comment">// 三元运算避免空指针</span></span><br><span class="line">            l1 = (l1 == <span class="keyword">null</span>)? <span class="keyword">null</span> :l1.next;</span><br><span class="line">            l2 = (l2 == <span class="keyword">null</span>)? <span class="keyword">null</span>:l2.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当出现5 ，5时 计算结果不为10 而为0 ，循环结束没有考虑进位标志</span></span><br><span class="line">        <span class="keyword">if</span>(flag == <span class="number">1</span>)&#123;</span><br><span class="line">            res.next = <span class="keyword">new</span> ListNode(flag);</span><br><span class="line">            res = res.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tem.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-相交链表" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -839,64 +903,6 @@
           
         <h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>配方表：记录包含的原料<br>sources表示原料，字段值之间用逗号分隔<br><img src="https://img-blog.csdnimg.cn/20200302162456438.png" alt="在这里插入图片描述"><br>原料表：对应原料id和原料名称<br><img src="https://img-blog.csdnimg.cn/2020030216290333.png" alt="在这里插入图片描述"></p>
 <p>现需要查询出的原料结果显示为原料名称，并以逗号分隔。可通过函数group_concat、find_in_set实现<br><img src="https://img-blog.csdnimg.cn/20200302163100692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/" class="article-date">
-      <time datetime="2020-05-12T08:39:36.146Z" itemprop="datePublished">2020-05-12</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/">nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>接到问题反馈，调用上传图片接口有时成功、有时失败。<br>后台的错误日志提示与传参序列化有关，但这不是直接原因，这里的误导导致查找问题走了很多弯路。<br><img src="https://img-blog.csdnimg.cn/20200508110332328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="xx"><br>前端页面调试时显示错误Request Entity Too Large，这才是问题的关键。<br><img src="https://img-blog.csdnimg.cn/20200508110717314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>nginx默认的bodysize为1M，请求超过此大小便失败。<br>在nginx配置文件补上client_max_body_size ,重启nginx解决<br><img src="https://img-blog.csdnimg.cn/20200508111037631.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
       
     </div>
