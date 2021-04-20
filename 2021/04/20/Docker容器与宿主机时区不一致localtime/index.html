@@ -7,26 +7,22 @@
   
   
   
-  <title>Hadoop案例wordCount执行流程 | 海安养猪场</title>
+  <title>Docker容器与宿主机时区不一致localtime | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="mapreudce操作统计文件中单词出现次数  将mapreduce程序打jar包，放到hadoop机器上执行hadoop jar xsf.jar mapreduce.Dirverx &#x2F;123 &#x2F;usr&#x2F;local&#x2F;server&#x2F;hadoop-2.10.0&#x2F;out mapreduce.Dirverx为driver类全限定类名&#x2F;123： 为输入文件路径默认从hdfs上读取&#x2F;usr&#x2F;local&#x2F;ser">
+  <meta name="description" content="Docker容器与宿主机时区不一致，导致容器内应用新增数据时记录的创建时间错误。 宿主机是CST 容器是UTC 通过命令在不重启容器的情况下改变时区 1docker cp &#x2F;etc&#x2F;localtime 95ca565f487b:&#x2F;etc&#x2F;localtime">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop案例wordCount执行流程">
-<meta property="og:url" content="http://www.xshf1996.cn/2020/08/31/Hadoop%E6%A1%88%E4%BE%8BwordCount%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:title" content="Docker容器与宿主机时区不一致localtime">
+<meta property="og:url" content="http://www.xshf1996.cn/2021/04/20/Docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%97%B6%E5%8C%BA%E4%B8%8D%E4%B8%80%E8%87%B4localtime/index.html">
 <meta property="og:site_name" content="海安养猪场">
-<meta property="og:description" content="mapreudce操作统计文件中单词出现次数  将mapreduce程序打jar包，放到hadoop机器上执行hadoop jar xsf.jar mapreduce.Dirverx &#x2F;123 &#x2F;usr&#x2F;local&#x2F;server&#x2F;hadoop-2.10.0&#x2F;out mapreduce.Dirverx为driver类全限定类名&#x2F;123： 为输入文件路径默认从hdfs上读取&#x2F;usr&#x2F;local&#x2F;ser">
+<meta property="og:description" content="Docker容器与宿主机时区不一致，导致容器内应用新增数据时记录的创建时间错误。 宿主机是CST 容器是UTC 通过命令在不重启容器的情况下改变时区 1docker cp &#x2F;etc&#x2F;localtime 95ca565f487b:&#x2F;etc&#x2F;localtime">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200825181943602.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200825181954814.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200825182041785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200825182050853.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200825182114615.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200825182129174.png#pic_center">
-<meta property="article:published_time" content="2020-08-31T01:36:51.393Z">
-<meta property="article:modified_time" content="2020-08-31T01:36:51.434Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210416160914330.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210416161009197.png">
+<meta property="article:published_time" content="2021-04-20T06:27:19.455Z">
+<meta property="article:modified_time" content="2021-04-20T06:27:19.491Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200825181943602.png#pic_center">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210416160914330.png">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -239,11 +235,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-Hadoop案例wordCount执行流程" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Docker容器与宿主机时区不一致localtime" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/08/31/Hadoop%E6%A1%88%E4%BE%8BwordCount%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" class="article-date">
-      <time datetime="2020-08-31T01:36:51.393Z" itemprop="datePublished">2020-08-31</time>
+      <a  href="/2021/04/20/Docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%97%B6%E5%8C%BA%E4%B8%8D%E4%B8%80%E8%87%B4localtime/" class="article-date">
+      <time datetime="2021-04-20T06:27:19.455Z" itemprop="datePublished">2021-04-20</time>
 </a>
 
     </div>
@@ -257,7 +253,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hadoop案例wordCount执行流程
+      Docker容器与宿主机时区不一致localtime
     </h1>
   
 
@@ -275,27 +271,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="mapreudce操作"><a href="#mapreudce操作" class="headerlink" title="mapreudce操作"></a>mapreudce操作</h2><p>统计文件中单词出现次数<br> <img src="https://img-blog.csdnimg.cn/20200825181943602.png#pic_center" alt="在这里插入图片描述"></p>
-<p>将mapreduce程序打jar包，放到hadoop机器上<br>执行hadoop jar xsf.jar mapreduce.Dirverx /123 /usr/local/server/hadoop-2.10.0/out</p>
-<p>mapreduce.Dirverx为driver类全限定类名<br>/123： 为输入文件路径默认从hdfs上读取<br>/usr/local/server/hadoop-2.10.0/out：为结果输出路径</p>
-<p>查看输出结果<br> <img src="https://img-blog.csdnimg.cn/20200825181954814.png#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="mapreduce流程"><a href="#mapreduce流程" class="headerlink" title="mapreduce流程"></a>mapreduce流程</h2><p><strong>mapreduce程序包含map方法、reduce方法、driver方法</strong></p>
-<p>（1）Map方法对文件切片的每行数据进行处理，入参为（行首的偏移量，每行内容）组成的key,value键值对。对每行内容进行处理，分割出单词，通过上下文context输出（单词，出现次数1）键值对</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mapperx</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>,<span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">// AAA BBB CCCC</span></span><br><span class="line">        String line = value.toString();</span><br><span class="line">        <span class="comment">// 切分数据</span></span><br><span class="line">        String[] words = line.split(<span class="string">" "</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String word : words)&#123;</span><br><span class="line">        <span class="comment">// AAA 1   BBB 1 CCCC 1</span></span><br><span class="line">            context.write(<span class="keyword">new</span> Text(word),<span class="keyword">new</span> IntWritable(<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（2）对map阶段输出的键值对进行处理，相同的key为一组。Reduce方法入参(key,相同key的value集合)。进行求和后输出。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Reducex</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>,<span class="title">Text</span>,<span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (IntWritable value : values)&#123;</span><br><span class="line">            sum += value.get();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// AAA 2</span></span><br><span class="line">        context.write(key,<span class="keyword">new</span> IntWritable(sum));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p>（3）driver对mapreduce任务进行定义配置并提供执行入口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dirverx</span>  </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException, InterruptedException </span>&#123;</span><br><span class="line">        Job job = Job.getInstance(<span class="keyword">new</span> Configuration());</span><br><span class="line"></span><br><span class="line">        job.setJarByClass(Dirverx<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        job.setMapperClass(Mapperx<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        job.setReducerClass(Reducex<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//map输出类型</span></span><br><span class="line">        job.setMapOutputKeyClass(Text<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        job.setMapOutputValueClass(IntWritable<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 输出结果</span></span><br><span class="line">        job.setOutputKeyClass(Text<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        job.setOutputValueClass(IntWritable<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 文件输入输出路径</span></span><br><span class="line">        FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(args[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job,<span class="keyword">new</span> Path(args[<span class="number">1</span>]));</span><br><span class="line">		<span class="comment">// 提交</span></span><br><span class="line">        <span class="keyword">boolean</span> b = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">        System.exit(b ?<span class="number">0</span>:<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="https://img-blog.csdnimg.cn/20200825182041785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>（1）    大文件被分为多个切片，每个切片由一个MapTask进程处理。默认每次读取切片的一行，调用map方法。<br>（2）    Map方法输出的结果键值对再写入环形缓存区前，调用part方法获取该key对应的分区号。默认key的hash值 % 设置的reduceTask数量。<br>（3）    缓冲区快写满，对存储数据进行快速排序后，写入本地磁盘。<br><img src="https://img-blog.csdnimg.cn/20200825182050853.png#pic_center" alt="在这里插入图片描述"></p>
-<p>（4）    程序从多台机器上将多个文件切片处理后的结果，下载后进行汇总归并为一个文件</p>
-<p><img src="https://img-blog.csdnimg.cn/20200825182114615.png#pic_center" alt="在这里插入图片描述"></p>
-<p>（5）    对文件中相邻两个key进行比较，最终将key相同的value集合调用reduce方法处理，最终输出到hdfs。<br> <img src="https://img-blog.csdnimg.cn/20200825182129174.png#pic_center" alt="在这里插入图片描述"></p>
+        <p>Docker容器与宿主机时区不一致，导致容器内应用新增数据时记录的创建时间错误。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210416160914330.png" alt="在这里插入图片描述"><br>宿主机是CST 容器是UTC</p>
+<p>通过命令在不重启容器的情况下改变时区</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">cp</span> <span class="string">/etc/localtime</span> <span class="string">95ca565f487b:/etc/localtime</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20210416161009197.png" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -304,13 +284,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/08/31/Hadoop%E6%A1%88%E4%BE%8BwordCount%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">Hadoop案例wordCount执行流程</a></p>
+        <p><span>本文标题:</span><a  href="/2021/04/20/Docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%97%B6%E5%8C%BA%E4%B8%8D%E4%B8%80%E8%87%B4localtime/">Docker容器与宿主机时区不一致localtime</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
-        <p><span>发布时间:</span>2020年08月31日 - 09时36分</p>
-        <p><span>最后更新:</span>2020年08月31日 - 09时36分</p>
+        <p><span>发布时间:</span>2021年04月20日 - 14时27分</p>
+        <p><span>最后更新:</span>2021年04月20日 - 14时27分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/08/31/Hadoop%E6%A1%88%E4%BE%8BwordCount%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" title="Hadoop案例wordCount执行流程">http://www.xshf1996.cn/2020/08/31/Hadoop%E6%A1%88%E4%BE%8BwordCount%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/08/31/Hadoop%E6%A1%88%E4%BE%8BwordCount%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/　　作者: Mr.xu" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2021/04/20/Docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%97%B6%E5%8C%BA%E4%B8%8D%E4%B8%80%E8%87%B4localtime/" title="Docker容器与宿主机时区不一致localtime">http://www.xshf1996.cn/2021/04/20/Docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%97%B6%E5%8C%BA%E4%B8%8D%E4%B8%80%E8%87%B4localtime/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2021/04/20/Docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%97%B6%E5%8C%BA%E4%B8%8D%E4%B8%80%E8%87%B4localtime/　　作者: Mr.xu" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -321,18 +301,18 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/11/10/SparkStreaming+Kafka%E5%AE%9E%E7%8E%B0wordcount/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a  href="/2021/04/20/RDS%20CPU%E5%91%8A%E8%AD%A6%E6%8E%92%E6%9F%A5/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          SparkStreaming+Kafka实现wordcount
+          RDS CPU告警排查
         
       </div>
     </a>
   
   
-    <a  href="/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">zookeeper基本命令、java应用</div>
+    <a  href="/2021/04/09/Docker%E6%9E%84%E5%BB%BA%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Docker构建微服务记录</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -344,7 +324,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mapreudce操作"><span class="toc-number">1.</span> <span class="toc-text">mapreudce操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mapreduce流程"><span class="toc-number">2.</span> <span class="toc-text">mapreduce流程</span></a></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -417,13 +397,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/11/10/SparkStreaming+Kafka%E5%AE%9E%E7%8E%B0wordcount/" title="上一篇: SparkStreaming+Kafka实现wordcount">
+            <a  href="/2021/04/20/RDS%20CPU%E5%91%8A%E8%AD%A6%E6%8E%92%E6%9F%A5/" title="上一篇: RDS CPU告警排查">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/" title="下一篇: zookeeper基本命令、java应用">
+            <a  href="/2021/04/09/Docker%E6%9E%84%E5%BB%BA%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%AE%B0%E5%BD%95/" title="下一篇: Docker构建微服务记录">
                 <i class="fa fa-angle-right"></i>
             </a>
         

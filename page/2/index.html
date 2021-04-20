@@ -233,6 +233,152 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-springboot+prometheus+grafana搭建应用监控" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/07/01/springboot+prometheus+grafana%E6%90%AD%E5%BB%BA%E5%BA%94%E7%94%A8%E7%9B%91%E6%8E%A7/" class="article-date">
+      <time datetime="2020-07-01T06:34:55.541Z" itemprop="datePublished">2020-07-01</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/07/01/springboot+prometheus+grafana%E6%90%AD%E5%BB%BA%E5%BA%94%E7%94%A8%E7%9B%91%E6%8E%A7/">springboot+prometheus+grafana搭建应用监控</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>搭建后的应用信息</p>
+<p>springboot应用：192.168.97.128:8001<br>prometheus:192.168.97.128:9090 (默认配置端口的是9090)<br>grafana:192.168.97.128:3000(默认端口3000，用户名密码 admin/admin)</p>
+<h2 id="一、springboot配置"><a href="#一、springboot配置" class="headerlink" title="一、springboot配置"></a>一、springboot配置</h2><p>引入项目依赖</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;dependency&gt;</span></span><br><span class="line">            <span class="string">&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line">            <span class="string">&lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span></span><br><span class="line">        <span class="string">&lt;/dependency&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">&lt;dependency&gt;</span></span><br><span class="line">            <span class="string">&lt;groupId&gt;io.micrometer&lt;/groupId&gt;</span></span><br><span class="line">            <span class="string">&lt;artifactId&gt;micrometer-registry-prometheus&lt;/artifactId&gt;</span></span><br><span class="line">        <span class="string">&lt;/dependency&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在yml添加actuator配置,开启监控</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">management:</span><br><span class="line">  endpoints:</span><br><span class="line">    enabled: <span class="keyword">true</span></span><br><span class="line">    web:</span><br><span class="line">      base-path: /actuator  # 访问根路径</span><br><span class="line">      exposure:</span><br><span class="line">        include: <span class="string">"*"</span></span><br></pre></td></tr></table></figure>
+
+<p>访问<a href="http://192.168.97.128:8001/actuator/prometheus，可以看到指标信息。" target="_blank" rel="noopener">http://192.168.97.128:8001/actuator/prometheus，可以看到指标信息。</a><br><img src="https://img-blog.csdnimg.cn/2020070114125372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="二、安装配置prometheus"><a href="#二、安装配置prometheus" class="headerlink" title="二、安装配置prometheus"></a>二、安装配置prometheus</h2><p>下载linux安装包,tar解压缩<br><a href="https://github.com/prometheus/prometheus/releases" target="_blank" rel="noopener">https://github.com/prometheus/prometheus/releases</a><br><img src="https://img-blog.csdnimg.cn/20200701140821918.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>修改prometheus.yml</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"># my global config</span><br><span class="line">global:</span><br><span class="line">  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.</span><br><span class="line">  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.</span><br><span class="line">  # scrape_timeout is set to the global default (10s).</span><br><span class="line"></span><br><span class="line"># Alertmanager configuration</span><br><span class="line">alerting:</span><br><span class="line">  alertmanagers:</span><br><span class="line">  - static_configs:</span><br><span class="line">    - targets:</span><br><span class="line">      # - alertmanager:9093</span><br><span class="line"></span><br><span class="line"># Load rules once and periodically evaluate them according to the global 'evaluation_interval'.</span><br><span class="line">rule_files:</span><br><span class="line">  # - "first_rules.yml"</span><br><span class="line">  # - "second_rules.yml"</span><br><span class="line"></span><br><span class="line"># A scrape configuration containing exactly one endpoint to scrape:</span><br><span class="line"># Here it's Prometheus itself.</span><br><span class="line">scrape_configs:</span><br><span class="line">  # The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span><br><span class="line">  - job_name: <span class="string">'prometheus'</span></span><br><span class="line"></span><br><span class="line">    # metrics_path defaults to '/metrics'</span><br><span class="line">    # scheme defaults to 'http'.</span><br><span class="line">    static_configs:</span><br><span class="line">    - targets: [<span class="string">'localhost:9090'</span>]</span><br><span class="line">  - job_name: <span class="string">'spring-actuator'</span></span><br><span class="line">    metrics_path: <span class="string">'/actuator/prometheus'</span></span><br><span class="line">    scrape_interval: <span class="number">5</span>s</span><br><span class="line">    static_configs:</span><br><span class="line">    - targets: [<span class="string">'192.168.97.128:8001'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>执行./prometheus –config.file=prometheus.yml启动应用后</p>
+<p>访问<a href="http://192.168.97.128:9090/targets" target="_blank" rel="noopener">http://192.168.97.128:9090/targets</a> 可以看到监控应用是否正常<br><img src="https://img-blog.csdnimg.cn/20200701141654848.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="三、安装grafana"><a href="#三、安装grafana" class="headerlink" title="三、安装grafana"></a>三、安装grafana</h2><p>下载Grafana:<a href="https://grafana.com/grafana/download" target="_blank" rel="noopener">https://grafana.com/grafana/download</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="comment">//dl.grafana.com/oss/release/grafana-7.0.3-1.x86_64.rpm </span></span><br><span class="line">sudo yum install grafana-<span class="number">7.0</span><span class="number">.3</span>-<span class="number">1</span>.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<p>进行安装<br> 启动服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service grafana-server start</span><br></pre></td></tr></table></figure>
+<p>访问<a href="http://192.168.97.128:3000/" target="_blank" rel="noopener">http://192.168.97.128:3000/</a><br><img src="https://img-blog.csdnimg.cn/2020070114203181.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>配置datasource,也就是之前yml里prometheus的地址<br><img src="https://img-blog.csdnimg.cn/20200701142113447.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><a href="https://grafana.com/dashboards" target="_blank" rel="noopener">https://grafana.com/dashboards</a> 可以找到别人已经配置好的监控指标，找一个。下载json文件。<br><img src="https://img-blog.csdnimg.cn/20200701142614919.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>点击import<br><img src="https://img-blog.csdnimg.cn/20200701142718494.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>拷贝下载的json内容和对应dashborad的id<br><img src="https://img-blog.csdnimg.cn/20200701142738733.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>配置数据源<br><img src="https://img-blog.csdnimg.cn/20200701142914171.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>监控系统搭建完成<br><img src="https://img-blog.csdnimg.cn/20200701142955586.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E7%9B%91%E6%8E%A7/">监控</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-反转链表" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="article-date">
+      <time datetime="2020-06-28T09:53:56.988Z" itemprop="datePublished">2020-06-28</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">反转链表</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="https://img-blog.csdnimg.cn/20200628174954617.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMubGVldGNvZGUtY24uY29tLzljZTI2YTcwOTE0N2FkOWNlNjE1MmQ2MDRlZmMxY2MxOWEzM2RjNWQ0NjdlZDJhYWU1YmM2ODQ2M2ZkZDI4ODguZ2lm" alt="在这里插入图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode pre = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        ListNode temp = <span class="keyword">null</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="keyword">null</span>)&#123;</span><br><span class="line">            </span><br><span class="line">            temp = cur.next;</span><br><span class="line">            <span class="comment">// 最后一个节点的next是null</span></span><br><span class="line">            cur.next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            </span><br><span class="line">            cur = temp;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8%E5%8F%8C%E6%8C%87%E9%92%88/">链表双指针</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-两数相加" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -791,125 +937,6 @@
     <a class="article-category-link" href="/categories/ceshi/">ceshi</a>
     </div>
 
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-wait()、notify()多线程交替输出" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/" class="article-date">
-      <time datetime="2020-05-12T08:39:43.788Z" itemprop="datePublished">2020-05-12</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/">wait()、notify()多线程交替输出</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>在线程获取到锁对象后，执行锁对象的wait()。当前线程将释放锁并加入锁对象的等待队列，其他线程调用锁对象的notify()、notifyAll(),则将之前加到等待队列的线程改变到锁对象的就绪队列中。等到CPU轮转到这个线程，就继续执行输出。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Object o = <span class="keyword">new</span> Object();</span><br><span class="line">         Thread threadA = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">50</span> ;i++)&#123;</span><br><span class="line">                    <span class="keyword">synchronized</span> (o)&#123;</span><br><span class="line">                     System.out.println(Thread.currentThread().getName()+<span class="string">"线程一"</span>+i);</span><br><span class="line">                         o.notify();</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            o.wait();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;&#125;);</span><br><span class="line"></span><br><span class="line">         Thread threadB = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;<span class="number">50</span> ;j++)&#123;</span><br><span class="line">                     <span class="keyword">synchronized</span> (o)&#123;</span><br><span class="line">                     System.out.println(Thread.currentThread().getName()+<span class="string">"线程二"</span>+j);</span><br><span class="line"></span><br><span class="line">                         o.notify();</span><br><span class="line">                         <span class="keyword">try</span> &#123;</span><br><span class="line">                             o.wait();</span><br><span class="line">                         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                             e.printStackTrace();</span><br><span class="line">                         &#125;</span><br><span class="line">                     &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;&#125;);</span><br><span class="line"></span><br><span class="line">         threadA.start();</span><br><span class="line">         Thread.sleep(<span class="number">100</span>);</span><br><span class="line">         threadB.start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Mysql函数group_concat、find_in_set进行数据库字段值翻译" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/" class="article-date">
-      <time datetime="2020-05-12T08:39:38.455Z" itemprop="datePublished">2020-05-12</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/">Mysql函数group_concat、find_in_set进行数据库字段值翻译</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>配方表：记录包含的原料<br>sources表示原料，字段值之间用逗号分隔<br><img src="https://img-blog.csdnimg.cn/20200302162456438.png" alt="在这里插入图片描述"><br>原料表：对应原料id和原料名称<br><img src="https://img-blog.csdnimg.cn/2020030216290333.png" alt="在这里插入图片描述"></p>
-<p>现需要查询出的原料结果显示为原料名称，并以逗号分隔。可通过函数group_concat、find_in_set实现<br><img src="https://img-blog.csdnimg.cn/20200302163100692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
 
       
       
