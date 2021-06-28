@@ -7,15 +7,26 @@
   
   
   
-  <title>海安养猪场</title>
+  <title>springboot+shiro+springsession解决分布式session | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="海安养猪场">
-<meta property="og:url" content="http://www.xshf1996.cn/index.html">
+  <meta name="description" content="现在一个项目后台api以集群方式部署，前端请求会经过负载均衡分散到集群上。shiro默认使用内存存储session,从而需要解决分布式session问题。 一、maven依赖主要用到了shiro+spring-session依赖 123456789&lt;dependency&gt;          &lt;groupId&gt;org.apache.shiro&lt;&#x2F;groupId&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot+shiro+springsession解决分布式session">
+<meta property="og:url" content="http://www.xshf1996.cn/2021/06/28/springboot+shiro+springsession%E8%A7%A3%E5%86%B3%E5%88%86%E5%B8%83%E5%BC%8Fsession/index.html">
 <meta property="og:site_name" content="海安养猪场">
+<meta property="og:description" content="现在一个项目后台api以集群方式部署，前端请求会经过负载均衡分散到集群上。shiro默认使用内存存储session,从而需要解决分布式session问题。 一、maven依赖主要用到了shiro+spring-session依赖 123456789&lt;dependency&gt;          &lt;groupId&gt;org.apache.shiro&lt;&#x2F;groupId&gt;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210601150147127.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210601150223217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210601150559929.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021060115152536.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210601151742689.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210601151957853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-06-28T02:00:35.264Z">
+<meta property="article:modified_time" content="2021-06-28T02:00:35.577Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210601150147127.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -33,9 +44,6 @@
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
-    
-    
-  
   
       <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   
@@ -46,8 +54,8 @@
       var yiliaConfig = {
           fancybox: true,
           animate: true,
-          isHome: true,
-          isPost: false,
+          isHome: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -231,9 +239,7 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-springboot+shiro+springsession解决分布式session" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-springboot+shiro+springsession解决分布式session" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a  href="/2021/06/28/springboot+shiro+springsession%E8%A7%A3%E5%86%B3%E5%88%86%E5%B8%83%E5%BC%8Fsession/" class="article-date">
@@ -250,13 +256,20 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2021/06/28/springboot+shiro+springsession%E8%A7%A3%E5%86%B3%E5%88%86%E5%B8%83%E5%BC%8Fsession/">springboot+shiro+springsession解决分布式session</a>
+    <h1 class="article-title" itemprop="name">
+      springboot+shiro+springsession解决分布式session
     </h1>
   
 
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -288,665 +301,153 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/2021/06/28/springboot+shiro+springsession%E8%A7%A3%E5%86%B3%E5%88%86%E5%B8%83%E5%BC%8Fsession/">springboot+shiro+springsession解决分布式session</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
+        <p><span>发布时间:</span>2021年06月28日 - 10时00分</p>
+        <p><span>最后更新:</span>2021年06月28日 - 10时00分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2021/06/28/springboot+shiro+springsession%E8%A7%A3%E5%86%B3%E5%88%86%E5%B8%83%E5%BC%8Fsession/" title="springboot+shiro+springsession解决分布式session">http://www.xshf1996.cn/2021/06/28/springboot+shiro+springsession%E8%A7%A3%E5%86%B3%E5%88%86%E5%B8%83%E5%BC%8Fsession/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2021/06/28/springboot+shiro+springsession%E8%A7%A3%E5%86%B3%E5%88%86%E5%B8%83%E5%BC%8Fsession/　　作者: Mr.xu" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a  href="/2021/04/20/RDS%20CPU%E5%91%8A%E8%AD%A6%E6%8E%92%E6%9F%A5/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">RDS CPU告警排查</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
   
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、maven依赖"><span class="toc-number">1.</span> <span class="toc-text">一、maven依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、配置文件"><span class="toc-number">2.</span> <span class="toc-text">二、配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、代码部分"><span class="toc-number">3.</span> <span class="toc-text">三、代码部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义Realm部分"><span class="toc-number">3.1.</span> <span class="toc-text">自定义Realm部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shiro-config部分"><span class="toc-number">3.2.</span> <span class="toc-text">shiro config部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#controller部分"><span class="toc-number">3.3.</span> <span class="toc-text">controller部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring-session的建表语句"><span class="toc-number">3.4.</span> <span class="toc-text">spring-session的建表语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#验证阶段"><span class="toc-number">3.5.</span> <span class="toc-text">验证阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session-manager、设置session过期时间中的问题"><span class="toc-number">4.</span> <span class="toc-text">session manager、设置session过期时间中的问题</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
 
 
 
 
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
 
 
 
-
-
-  
-    <article id="post-RDS CPU告警排查" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2021/04/20/RDS%20CPU%E5%91%8A%E8%AD%A6%E6%8E%92%E6%9F%A5/" class="article-date">
-      <time datetime="2021-04-20T06:27:19.457Z" itemprop="datePublished">2021-04-20</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+        <section class="changyan" id="comments">
+  <!--<div id="uyan_frame"></div>-->
+  <div id="SOHUCS"></div>
+  <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+  <script type="text/javascript">
+    window.changyan.api.config({
+      appid: 'xxxx',
+      conf: 'xxxxxxxxx'
+    });
+  </script>
+</section>
     
-    
-      <header class="article-header">
+
+
+
+    <div class="scroll" id="post-nav-button">
         
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2021/04/20/RDS%20CPU%E5%91%8A%E8%AD%A6%E6%8E%92%E6%9F%A5/">RDS CPU告警排查</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="问题现象："><a href="#问题现象：" class="headerlink" title="问题现象："></a>问题现象：</h2><p>RDS周期性CPU占用率接近90%触发报警<br><img src="https://img-blog.csdnimg.cn/20210419152135804.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>innoDB访问行数普遍维持在300多万<br><img src="https://img-blog.csdnimg.cn/20210419152355517.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="排查："><a href="#排查：" class="headerlink" title="排查："></a>排查：</h2><p>1.查询死锁相关信息，没有死锁信息</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">FROM</span> <span class="string">INFORMATION_SCHEMA.INNODB_TRX;--事务</span></span><br><span class="line"></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">FROM</span> <span class="string">INFORMATION_SCHEMA.INNODB_LOCKS;</span></span><br><span class="line"><span class="string">SELECT</span> <span class="string">*</span> <span class="string">FROM</span> <span class="string">INFORMATION_SCHEMA.INNODB_LOCK_WAITS;</span></span><br></pre></td></tr></table></figure>
-
-<p>2.可能是慢sql导致。设置慢查询时间long_query_time为5s,没有显示慢查询日志。<br><img src="https://img-blog.csdnimg.cn/20210419152649159.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2.通过show processlist 进行查询，发现一个进程长时间处于sending data状态。也就是进程一直在select数据。<br><img src="https://img-blog.csdnimg.cn/2021041915402550.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>3.关注processlist 的host字段，host代表了客户端的IP和端口。所以到应用服务器上查询端口33966的占用情况<br><img src="https://img-blog.csdnimg.cn/20210419154358655.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>后面对应的7995为实际java应用的进程id</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">ps</span> <span class="string">-ef|grep</span> <span class="number">7995</span></span><br></pre></td></tr></table></figure>
-<p>确定了问题具体发生在哪个java应用中</p>
-<p>最终确定了是在这个springboot中有一个定时任务 会每五分钟调用一次存储过程且存储过程执行时间较长导致最终CPU告警</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Docker容器与宿主机时区不一致localtime" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2021/04/20/Docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%97%B6%E5%8C%BA%E4%B8%8D%E4%B8%80%E8%87%B4localtime/" class="article-date">
-      <time datetime="2021-04-20T06:27:19.455Z" itemprop="datePublished">2021-04-20</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2021/04/20/Docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%97%B6%E5%8C%BA%E4%B8%8D%E4%B8%80%E8%87%B4localtime/">Docker容器与宿主机时区不一致localtime</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>Docker容器与宿主机时区不一致，导致容器内应用新增数据时记录的创建时间错误。</p>
-<p><img src="https://img-blog.csdnimg.cn/20210416160914330.png" alt="在这里插入图片描述"><br>宿主机是CST 容器是UTC</p>
-<p>通过命令在不重启容器的情况下改变时区</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">cp</span> <span class="string">/etc/localtime</span> <span class="string">95ca565f487b:/etc/localtime</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20210416161009197.png" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Docker构建微服务记录" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2021/04/09/Docker%E6%9E%84%E5%BB%BA%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%AE%B0%E5%BD%95/" class="article-date">
-      <time datetime="2021-04-09T09:50:58.856Z" itemprop="datePublished">2021-04-09</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2021/04/09/Docker%E6%9E%84%E5%BB%BA%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%AE%B0%E5%BD%95/">Docker构建微服务记录</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>通过Dockerfile文件来将springboot构建docker镜像<br>首先看下项目的目录结构<br><img src="https://img-blog.csdnimg.cn/20210409094845359.png" alt="在这里插入图片描述"><br>bin目录作为宿主机和容器的挂载目录。下属两个文件夹一个config用于放配置文件，一个log用于保存容器内运行产生的日志：<br><img src="https://img-blog.csdnimg.cn/20210409095100223.png" alt="在这里插入图片描述"><br>在配置文件中配置了springboot日志生成的路径</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">file:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">bin/log</span></span><br></pre></td></tr></table></figure>
-<p>Dockerfile中配置的内容<br>将springboot添加到镜像里，启动时读取容器内部bin/config下的配置文件。启动容器时会进行挂载的操作，因为bin目录是挂载的宿主机的目录。相当于容器内能看到宿主机的文件，实现外部配置文件。</p>
-<p>通过docker exec -it 容器id bash 进入容器命令行就能看到挂载的bin目录<img src="https://img-blog.csdnimg.cn/20210409100036465.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">FROM</span> <span class="string">openjdk:8</span></span><br><span class="line"><span class="string">WORKDIR</span> <span class="string">/usr/local/project/sass</span></span><br><span class="line"><span class="string">ADD</span> <span class="string">./deyi-his-sass.jar</span> <span class="string">/usr/local/project/sass/docker-deyi-his-sass.jar</span></span><br><span class="line"><span class="string">ENTRYPOINT</span> <span class="string">["java","-jar","-Xms256M","-Xmx256M","/usr/local/project/sass/docker-deyi-his-sass.jar","--spring.config.location=/usr/local/project/sass/bin/config/application.yml"]</span></span><br></pre></td></tr></table></figure>
-
-<p>之后通过docker build去生成镜像</p>
-<p>重点启动也就是通过docker run 启动一个容器时</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">run</span> <span class="string">--hostname</span> <span class="string">$1</span> <span class="string">--net=host</span> <span class="string">--name</span> <span class="string">$1</span> <span class="string">-v</span> <span class="string">/usr/local/project/$1/bin:/usr/local/project/$1/bin</span> <span class="string">-d</span> <span class="string">$projectname:$DATE</span></span><br></pre></td></tr></table></figure>
-<p>1.–net=host<br>docker会自动生成一个默认的网卡docker0<br><img src="https://img-blog.csdnimg.cn/2021040910055251.png" alt="在这里插入图片描述"><br>容器会默认分配一个docker0下的一个ip地址，而在微服务中客户端注册到eureka就会使用这个docker分配的ip进行注册<br><img src="https://img-blog.csdnimg.cn/20210409100837934.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>这时如果服务存在跨机器调用是无法访问的。<br>需要在启动容器时通过–net=host，相当于是走宿主机的网络而不是走docker0，这样在实例注册时显示的就是实际的ip地址<br><img src="https://img-blog.csdnimg.cn/20210409101123635.png" alt="在这里插入图片描述"></p>
-<p>2.-v /usr/local/project/$1/bin:/usr/local/project/$1/bin<br>来挂载宿主机的目录<br>在容器启动后，对应的日志就可以在宿主机的bin/log目录下看到<br><img src="https://img-blog.csdnimg.cn/2021040910131748.png" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Mysql Date字段索引失效情况" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/12/01/Mysql%20Date%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5/" class="article-date">
-      <time datetime="2020-12-01T07:12:01.248Z" itemprop="datePublished">2020-12-01</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <a  href="/2021/04/20/RDS%20CPU%E5%91%8A%E8%AD%A6%E6%8E%92%E6%9F%A5/" title="下一篇: RDS CPU告警排查">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/12/01/Mysql%20Date%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5/">Mysql Date字段索引失效情况</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>单表总记录5000W,当查询条件可能涉及的记录数达到五分之一时，放弃走索引搜索走全表查询。</p>
-<p>1、大于2020-10-28的记录数大致在800W，使用到索引。</p>
-<p><img src="https://img-blog.csdnimg.cn/20201201143551672.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、查询条件改为2020-10-25,执行计划显示未使用索引<br><img src="https://img-blog.csdnimg.cn/20201201143811769.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-
-      
     </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/06/28/springboot+shiro+springsession%E8%A7%A3%E5%86%B3%E5%88%86%E5%B8%83%E5%BC%8Fsession/">springboot+shiro+springsession解决分布式session</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/20/RDS%20CPU%E5%91%8A%E8%AD%A6%E6%8E%92%E6%9F%A5/">RDS CPU告警排查</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/20/Docker%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%AE%BF%E4%B8%BB%E6%9C%BA%E6%97%B6%E5%8C%BA%E4%B8%8D%E4%B8%80%E8%87%B4localtime/">Docker容器与宿主机时区不一致localtime</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/09/Docker%E6%9E%84%E5%BB%BA%E5%BE%AE%E6%9C%8D%E5%8A%A1%E8%AE%B0%E5%BD%95/">Docker构建微服务记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/01/Mysql%20Date%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5/">Mysql Date字段索引失效情况</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/10/SparkStreaming+Kafka%E5%AE%9E%E7%8E%B0wordcount/">SparkStreaming+Kafka实现wordcount</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/31/Hadoop%E6%A1%88%E4%BE%8BwordCount%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">Hadoop案例wordCount执行流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/">zookeeper基本命令、java应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">zookeeper集群搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/">JVM（二）垃圾收集</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/06/KMP%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90/">KMP字符串模式匹配算法解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/01/springboot+prometheus+grafana%E6%90%AD%E5%BB%BA%E5%BA%94%E7%94%A8%E7%9B%91%E6%8E%A7/">springboot+prometheus+grafana搭建应用监控</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/28/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">反转链表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/18/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">两数相加</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/17/%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/">相交链表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/08/JVM(%E4%B8%80)/">JVM(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/31/sychorzied%E9%94%81%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/">sychorzied锁升级过程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/28/%E5%A4%9A%E7%BA%BF%E7%A8%8B(%E4%BA%8C)%20volatile/">多线程(二) volatile</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/23/%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91_%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6_01%E8%83%8C%E5%8C%85%EF%BC%89/">算法-动态规划（斐波那契_青蛙跳台阶_01背包）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/">多线程（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/15/xxxxs%20adas%20dsad%20s%20d%20ad%20s%20as/">test</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/wait()%E3%80%81notify()%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA/">wait()、notify()多线程交替输出</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/Mysql%E5%87%BD%E6%95%B0group_concat%E3%80%81find_in_set%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5%E5%80%BC%E7%BF%BB%E8%AF%91/">Mysql函数group_concat、find_in_set进行数据库字段值翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/nginx%E6%9C%AA%E9%85%8D%E7%BD%AEbody_size%E5%AF%BC%E8%87%B4%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%EF%BC%88Request%20Entity%20Too%20Large%EF%BC%89/">nginx未配置body_size导致上传图片接口请求失败（Request Entity Too Large）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/12/springboot%E6%95%B4%E5%90%88ldap%E5%AE%9E%E7%8E%B0AD%E5%9F%9F%E8%AE%A4%E8%AF%81/">springboot整合ldap实现AD域认证</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/05/09/mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%AE%9E%E8%B7%B5/">mysql主从同步实践</a></li></ul>
     
-    <div class="article-info article-info-index">
-      
-      
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
 
 
 
 
-
-
-
-
-
-
-
-  
-    <article id="post-SparkStreaming+Kafka实现wordcount" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/11/10/SparkStreaming+Kafka%E5%AE%9E%E7%8E%B0wordcount/" class="article-date">
-      <time datetime="2020-11-10T07:13:26.415Z" itemprop="datePublished">2020-11-10</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+    <script>
         
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/11/10/SparkStreaming+Kafka%E5%AE%9E%E7%8E%B0wordcount/">SparkStreaming+Kafka实现wordcount</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>使用sparkStreaming消费kafka消息</p>
-<h2 id="scala消费端"><a href="#scala消费端" class="headerlink" title="scala消费端"></a>scala消费端</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-core_2.12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-sql_2.12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-streaming_2.12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka-0-10 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.spark<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spark-streaming-kafka-0-10_2.12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.kafka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>kafka-clients<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">KafkaStreaming</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> brokers = <span class="string">"10.0.0.81:9092"</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> topic = <span class="string">"spark-streaming1"</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">val</span> group = <span class="string">"kafkaStreamingTest"</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> sparkConf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setMaster(<span class="string">"local"</span>).setAppName(<span class="string">"11"</span>)</span><br><span class="line">    <span class="comment">// 间隔60s</span></span><br><span class="line">    <span class="keyword">val</span> scc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(sparkConf,<span class="type">Seconds</span>(<span class="number">60</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> kafkaParams = <span class="type">Map</span>(<span class="type">ConsumerConfig</span>.<span class="type">BOOTSTRAP_SERVERS_CONFIG</span> -&gt; brokers,</span><br><span class="line">      <span class="type">ConsumerConfig</span>.<span class="type">KEY_DESERIALIZER_CLASS_CONFIG</span> -&gt; classOf[<span class="type">StringDeserializer</span>],</span><br><span class="line">      <span class="type">ConsumerConfig</span>.<span class="type">VALUE_DESERIALIZER_CLASS_CONFIG</span> -&gt; classOf[<span class="type">StringDeserializer</span>],</span><br><span class="line">      <span class="type">ConsumerConfig</span>.<span class="type">GROUP_ID_CONFIG</span> -&gt; group)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> stream  = <span class="type">KafkaUtils</span>.createDirectStream(scc,<span class="type">LocationStrategies</span>.<span class="type">PreferConsistent</span>,<span class="type">ConsumerStrategies</span>.<span class="type">Subscribe</span>[<span class="type">String</span>,<span class="type">String</span>](<span class="type">List</span>(topic), kafkaParams))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> value = stream.map(record =&gt;&#123;</span><br><span class="line">      record.value()</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">val</span> res = value.flatMap(_.split(<span class="string">" "</span>)).map(va =&gt; (va,<span class="number">1</span>)).reduceByKey(_+_)</span><br><span class="line">    res.print()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    scc.start()</span><br><span class="line">    scc.awaitTermination()</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="java发送端"><a href="#java发送端" class="headerlink" title="java发送端"></a>java发送端</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.kafka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-kafka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Produce</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,<span class="string">"10.0.0.81:9092"</span>);</span><br><span class="line">        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer<span class="class">.<span class="keyword">class</span>.<span class="title">getName</span>())</span>;</span><br><span class="line">        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer<span class="class">.<span class="keyword">class</span>.<span class="title">getName</span>())</span>;</span><br><span class="line">        properties.put(ProducerConfig.CLIENT_ID_CONFIG,<span class="string">"kafkaStreamingTest"</span>);</span><br><span class="line">        KafkaProducer producer = <span class="keyword">new</span> KafkaProducer(properties);</span><br><span class="line"></span><br><span class="line">        ProducerRecord record = <span class="keyword">new</span> ProducerRecord(<span class="string">"spark-streaming1"</span>, <span class="string">"aa aa a b"</span>);</span><br><span class="line">        ProducerRecord record1 = <span class="keyword">new</span> ProducerRecord(<span class="string">"spark-streaming1"</span>, <span class="string">"a b c"</span>);</span><br><span class="line">        producer.send(record).get();</span><br><span class="line">        producer.send(record1).get();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>每60秒汇总输出<br><img src="https://img-blog.csdnimg.cn/20201110143047675.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>消费端配置log4j.properties,减少spark log 输出。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Global</span> <span class="string">logging</span> <span class="string">configuration</span></span><br><span class="line"><span class="string">log4j.rootLogger=WARN,</span> <span class="string">stdout</span></span><br><span class="line"><span class="string">Console</span> <span class="string">output...</span></span><br><span class="line"><span class="string">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span></span><br><span class="line"><span class="string">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span></span><br><span class="line"><span class="string">log4j.appender.stdout.layout.ConversionPattern=%5p</span> <span class="string">[%t]</span> <span class="bullet">-</span> <span class="string">%m%n</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Hadoop案例wordCount执行流程" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/08/31/Hadoop%E6%A1%88%E4%BE%8BwordCount%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" class="article-date">
-      <time datetime="2020-08-31T01:36:51.393Z" itemprop="datePublished">2020-08-31</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/08/31/Hadoop%E6%A1%88%E4%BE%8BwordCount%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">Hadoop案例wordCount执行流程</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="mapreudce操作"><a href="#mapreudce操作" class="headerlink" title="mapreudce操作"></a>mapreudce操作</h2><p>统计文件中单词出现次数<br> <img src="https://img-blog.csdnimg.cn/20200825181943602.png#pic_center" alt="在这里插入图片描述"></p>
-<p>将mapreduce程序打jar包，放到hadoop机器上<br>执行hadoop jar xsf.jar mapreduce.Dirverx /123 /usr/local/server/hadoop-2.10.0/out</p>
-<p>mapreduce.Dirverx为driver类全限定类名<br>/123： 为输入文件路径默认从hdfs上读取<br>/usr/local/server/hadoop-2.10.0/out：为结果输出路径</p>
-<p>查看输出结果<br> <img src="https://img-blog.csdnimg.cn/20200825181954814.png#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="mapreduce流程"><a href="#mapreduce流程" class="headerlink" title="mapreduce流程"></a>mapreduce流程</h2><p><strong>mapreduce程序包含map方法、reduce方法、driver方法</strong></p>
-<p>（1）Map方法对文件切片的每行数据进行处理，入参为（行首的偏移量，每行内容）组成的key,value键值对。对每行内容进行处理，分割出单词，通过上下文context输出（单词，出现次数1）键值对</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mapperx</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>,<span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">// AAA BBB CCCC</span></span><br><span class="line">        String line = value.toString();</span><br><span class="line">        <span class="comment">// 切分数据</span></span><br><span class="line">        String[] words = line.split(<span class="string">" "</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String word : words)&#123;</span><br><span class="line">        <span class="comment">// AAA 1   BBB 1 CCCC 1</span></span><br><span class="line">            context.write(<span class="keyword">new</span> Text(word),<span class="keyword">new</span> IntWritable(<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>（2）对map阶段输出的键值对进行处理，相同的key为一组。Reduce方法入参(key,相同key的value集合)。进行求和后输出。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Reducex</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>,<span class="title">Text</span>,<span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (IntWritable value : values)&#123;</span><br><span class="line">            sum += value.get();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// AAA 2</span></span><br><span class="line">        context.write(key,<span class="keyword">new</span> IntWritable(sum));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p>（3）driver对mapreduce任务进行定义配置并提供执行入口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dirverx</span>  </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException, InterruptedException </span>&#123;</span><br><span class="line">        Job job = Job.getInstance(<span class="keyword">new</span> Configuration());</span><br><span class="line"></span><br><span class="line">        job.setJarByClass(Dirverx<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        job.setMapperClass(Mapperx<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        job.setReducerClass(Reducex<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//map输出类型</span></span><br><span class="line">        job.setMapOutputKeyClass(Text<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        job.setMapOutputValueClass(IntWritable<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 输出结果</span></span><br><span class="line">        job.setOutputKeyClass(Text<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        job.setOutputValueClass(IntWritable<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 文件输入输出路径</span></span><br><span class="line">        FileInputFormat.setInputPaths(job, <span class="keyword">new</span> Path(args[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job,<span class="keyword">new</span> Path(args[<span class="number">1</span>]));</span><br><span class="line">		<span class="comment">// 提交</span></span><br><span class="line">        <span class="keyword">boolean</span> b = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">        System.exit(b ?<span class="number">0</span>:<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="https://img-blog.csdnimg.cn/20200825182041785.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>（1）    大文件被分为多个切片，每个切片由一个MapTask进程处理。默认每次读取切片的一行，调用map方法。<br>（2）    Map方法输出的结果键值对再写入环形缓存区前，调用part方法获取该key对应的分区号。默认key的hash值 % 设置的reduceTask数量。<br>（3）    缓冲区快写满，对存储数据进行快速排序后，写入本地磁盘。<br><img src="https://img-blog.csdnimg.cn/20200825182050853.png#pic_center" alt="在这里插入图片描述"></p>
-<p>（4）    程序从多台机器上将多个文件切片处理后的结果，下载后进行汇总归并为一个文件</p>
-<p><img src="https://img-blog.csdnimg.cn/20200825182114615.png#pic_center" alt="在这里插入图片描述"></p>
-<p>（5）    对文件中相邻两个key进行比较，最终将key相同的value集合调用reduce方法处理，最终输出到hdfs。<br> <img src="https://img-blog.csdnimg.cn/20200825182129174.png#pic_center" alt="在这里插入图片描述"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-zookeeper基本命令、java应用" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/" class="article-date">
-      <time datetime="2020-08-01T02:33:56.972Z" itemprop="datePublished">2020-08-01</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/08/01/zookeeper%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E3%80%81java%E5%BA%94%E7%94%A8/">zookeeper基本命令、java应用</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><p>创建  -e临时节点  -s顺序节点<br>create (-e -s) path data</p>
-<p>查询节点<br>ls path</p>
-<p>更新数据<br>set path data</p>
-<p>查询数据<br>get -s path<br>dataversion在数据变化后会+1<br><img src="https://img-blog.csdnimg.cn/20200801093405762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>查看当前节点的角色是leader\follower<br>./zkServer.sh status</p>
-<p>删除，提供cas删除<br>delete path [version]</p>
-<h2 id="Java客户端"><a href="#Java客户端" class="headerlink" title="Java客户端"></a>Java客户端</h2><h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;3.5.3-beta&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="权限ACL"><a href="#权限ACL" class="headerlink" title="权限ACL"></a>权限ACL</h3><p>通过ACL可以对节点访问进行权限控制</p>
-<p>使用zkCli时，ACL的格式由<schema>:<id>:<acl>三段组成。<br>schema：可以取下列值：world, auth, digest, host/ip<br>id： 标识身份，值依赖于schema做解析。<br>acl：就是权限：cdwra分别表示create, delete,write,read, admin</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ZooKeeper zooKeeper = <span class="keyword">new</span> ZooKeeper(<span class="string">"192.168.97.139:2181,192.168.97.123:2181,192.168.97.119"</span>,</span><br><span class="line">        <span class="number">5000</span>, <span class="keyword">new</span> Watcher() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(WatchedEvent watchedEvent)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"哈哈"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">zooKeeper.addAuthInfo(<span class="string">"digest"</span>,<span class="string">"foo:true"</span>.getBytes());</span><br><span class="line">System.out.println(zooKeeper.getState());</span><br><span class="line">String path = zooKeeper.create(<span class="string">"/testacl2"</span>,<span class="string">"hhajava"</span>.getBytes(), ZooDefs.Ids.CREATOR_ALL_ACL, CreateMode.PERSISTENT);</span><br></pre></td></tr></table></figure>
-<p>连接zookeeper后，通过zookeeper.addAuthInfo给这个客户端加上一个信息。然后创建节点，注意ZooDefs.Ids.CREATOR_ALL_ACL代表是拥有权限才能够访问。<br><img src="https://img-blog.csdnimg.cn/20200801095403810.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>第一次访问该节点报错，通过addauth 加入权限认证，第二次访问就能够获取到数据</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 1、同步创建节点</span></span><br><span class="line">String path = zooKeeper.create(<span class="string">"/java"</span>,<span class="string">"hhajava"</span>.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);<span class="comment">//持久化节点</span></span><br><span class="line"> System.out.println(path);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 2、删除节点 version 对应 get -s path的 dataversion</span></span><br><span class="line">zooKeeper.delete(<span class="string">"/java"</span>,<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p>部分方法中，可以传入watcher。它提供了一种机制，当watch的节点发生变化，客户端将会收到watch的信息。分布式锁也是基于这种反馈机制。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 4、获取子节点</span></span><br><span class="line">            List&lt;String&gt; list = zooKeeper.getChildren(<span class="string">"/java"</span>, <span class="keyword">new</span> Watcher() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(WatchedEvent watchedEvent)</span> </span>&#123;</span><br><span class="line">                    System.out.println(<span class="string">"节点产生变化"</span>+watchedEvent.getPath());</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">for</span> (String a :list)&#123;</span><br><span class="line">                System.out.println(a);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 获取节点数据</span></span><br><span class="line">            <span class="keyword">byte</span>[] data1 = zooKeeper.getData(<span class="string">"/java"</span>, <span class="keyword">new</span> Watcher() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(WatchedEvent watchedEvent)</span> </span>&#123;</span><br><span class="line">                    System.out.println(watchedEvent.getPath()+<span class="string">"数据改变"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="keyword">new</span> Stat());</span><br><span class="line">            System.out.println(<span class="keyword">new</span> String(data1));</span><br><span class="line"></span><br><span class="line"><span class="comment">//            // 更新节点数据</span></span><br><span class="line">            zooKeeper.setData(<span class="string">"/java"</span>,<span class="string">"31231"</span>.getBytes(),<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="Curator客户端框架"><a href="#Curator客户端框架" class="headerlink" title="Curator客户端框架"></a>Curator客户端框架</h2><h3 id="引入依赖-1"><a href="#引入依赖-1" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.curator&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;curator-framework&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.0.1&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">&lt;!--        提供分布式锁实现--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.curator&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;curator-recipes&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;4.0.1&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、创建节点</span></span><br><span class="line">          CuratorFramework client =  CuratorFrameworkFactory.builder()</span><br><span class="line">                  .connectString(<span class="string">"192.168.97.139:2181"</span>)</span><br><span class="line">                .sessionTimeoutMs(<span class="number">5555</span>)</span><br><span class="line">                .retryPolicy(<span class="keyword">new</span> RetryOneTime(<span class="number">111</span>))</span><br><span class="line">                .build();</span><br><span class="line">        client.start();</span><br><span class="line"><span class="comment">//        client.create().forPath("/curator","test".getBytes());</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 全局id</span></span><br><span class="line">        String path = client.create().withMode(CreateMode.PERSISTENT_SEQUENTIAL).forPath(<span class="string">"/quanjuid"</span>,<span class="string">"222"</span>.getBytes());</span><br><span class="line">        System.out.println(path);</span><br><span class="line">        <span class="comment">// 2、分布式锁</span></span><br><span class="line">        InterProcessMutex lock = <span class="keyword">new</span> InterProcessMutex(client,<span class="string">"/lock"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ;i &lt;<span class="number">30</span>;i++)&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        lock.acquire();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.println(<span class="string">"a的值-------------"</span>+a);</span><br><span class="line">                    a++;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        lock.release();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<p>全局id 主要利用了顺序节点会自动在创建节点后添加序号<br><img src="https://img-blog.csdnimg.cn/20200801100958941.png" alt="在这里插入图片描述"><br>分布式锁只要利用了临时有序节点特性和watch机制。针对读请求，查询之前的节点没有写请求就可以共享。针对写请求，当写请求是第一个节点才会获得锁。每个节点watch前一个节点，避免羊群效应（当锁释放，多个请求同时去争抢创建节点）。因为是临时节点，当客户端占用锁时失去连接也就会删除这个节点释放锁。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-zookeeper集群搭建" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="article-date">
-      <time datetime="2020-08-01T00:38:20.727Z" itemprop="datePublished">2020-08-01</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/08/01/zookeeper%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">zookeeper集群搭建</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="集群模式"><a href="#集群模式" class="headerlink" title="集群模式"></a>集群模式</h2><p>1、解压缩安装包后，将conf目录下的zoo_sample.cfg复制一份更名为zoo.cfg，并对其进行配置。配置dataDir存放文件。<br>集群关系通过server.id = ip : port1: port2的形式配置</p>
-<p>三个端口的含义：<br>clientPort=2181表示客户端访问端口。<br>2888 leader节点和follower通信端口。<br>3888 leader选举通信端口。<br><img src="https://img-blog.csdnimg.cn/20200801081716845.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、在上面配置的dataDir目录创建空白文件myid,内容为id也就是配置中每台机器对应的id.</p>
-<p>3、通过bin/zkServer.sh启动，通过bin/zkCli.sh访问</p>
-<h2 id="伪集群模式"><a href="#伪集群模式" class="headerlink" title="伪集群模式"></a>伪集群模式</h2><p>单台机器只需要将配置的节点信息改成<br>server.1=192.168.97.119:2888:3888<br>server.2=192.168.97.119:2889:3889<br>server.3=192.168.97.119:2887:3887</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-JVM（二）垃圾收集" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" class="article-date">
-      <time datetime="2020-07-21T08:57:03.937Z" itemprop="datePublished">2020-07-21</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/">JVM（二）垃圾收集</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h1 id="判断是否垃圾"><a href="#判断是否垃圾" class="headerlink" title="判断是否垃圾"></a>判断是否垃圾</h1><h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><p>通过添加一个引用计数器，引用了加1，引用失效减1。引用计数为0则判断为垃圾。但无法收集循环引用的对象。所以一般不采用此方式。</p>
-<h2 id="可达性分析"><a href="#可达性分析" class="headerlink" title="可达性分析"></a>可达性分析</h2><p>通过一系列称为GCRoots的根对象，根据引用向下搜索。如果对象没有可达的GCRoots则标记为垃圾。</p>
-<p>可作为GCRoots的对象：<br>1、虚拟机栈栈帧中局部变量表里的变量。<br>2、java类中静态变量。<br>3、常量池中的引用。<br>4、类加载器<br>5、synchronized关键字持有的对象。</p>
-<h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2><p>强引用：Object j = new Object();这种赋值就是强引用。垃圾收集器永远不会回收强引用对象，即使发生OOM。<br>软引用：软引用对象会在系统发生内存溢出之前，进行回收。<br>弱引用：下次发生垃圾收集就进行回收。<br>虚引用</p>
-<h2 id="finalize（）拯救对象"><a href="#finalize（）拯救对象" class="headerlink" title="finalize（）拯救对象"></a>finalize（）拯救对象</h2><p>判断对象是否进行垃圾回收会经过两次标记。一次是GCRoots的可达性分析。一次是是否执行对象的finalize(),并且重新获得引用。</p>
-<p>假如对象没有重写finalize()，或者finalize()已经执行过了，finalize()在系统中只会执行一次。都不会执行该方法。</p>
-<h2 id="方法区的回收"><a href="#方法区的回收" class="headerlink" title="方法区的回收"></a>方法区的回收</h2><p>判断一个类信息是否要进行回收需要同时满足以下条件：<br>1、该类所有实例都已经进行回收。<br>2、加载该类的类加载器已经进行回收。<br>3、该类的class对象没有任何地方引用比如反射</p>
-<h1 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h1><h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><p>算法分为标记、清除两个阶段。利用可达性分析，判断对象是否是垃圾，然后将标记为垃圾的对象清除。</p>
-<p>缺点：1、对象较多时，标记时间长。<br>2、清除操作带来了大量内存碎片。可能引起更频繁的gc.<br><img src="https://img-blog.csdnimg.cn/2020072114535544.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="标记复制"><a href="#标记复制" class="headerlink" title="标记复制"></a>标记复制</h2><p>将内存分为两块。一块用于存放，一块用于待命。首先进行标记垃圾，然后执行清除操作，再将存活对象按序放进待命的内存。这样解决了大量内存碎片的缺点。但是此方法的内存利用率只有一半，不高。<br><img src="https://img-blog.csdnimg.cn/20200721145414473.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="标记整理"><a href="#标记整理" class="headerlink" title="标记整理"></a>标记整理</h2><p>主要面向老年代。先进行标记操作，然后将存活对象都向内存空间的一端进行移动，清除掉存活边界以外的内存。</p>
-<h1 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h1><p><img src="https://img-blog.csdnimg.cn/20200721150015170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h2><p>![在这里插入图片<img src="https://img-blog.csdnimg.cn/20200721150411274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>当GC线程执行时暂停应用程序线程，也就是stop the world。只有一个线程负责垃圾回收。</p>
-<p>在内存资源受限或者单核处理器下，serialGC由于没有线程交互的开销，有较高的处理效率。</p>
-<h2 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h2><p>ParNew 是Serial GC 的多线程版本。GC时有多个线程执行。用的标记复制算法。</p>
-<h2 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h2><p>与ParNew收集器很相似。Parallel Scavenge 更关注程序的吞吐量。</p>
-<p>吞吐量= 执行用户代码的时间 / （执行用户代码的时间 + 执行垃圾收集的时间）</p>
-<h2 id="SerialOld-收集器"><a href="#SerialOld-收集器" class="headerlink" title="SerialOld 收集器"></a>SerialOld 收集器</h2><p>Serial Old 是Serial 的老年代版本。</p>
-<h2 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h2><p>是Parallel Scavenge的老年代版本<br>关注吞吐量，可以和Parallel Scavenge配合使用。</p>
-<h2 id="CMS-收集器"><a href="#CMS-收集器" class="headerlink" title="CMS 收集器"></a>CMS 收集器</h2><p><img src="https://img-blog.csdnimg.cn/2020072115201178.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>CMS关注垃圾回收的停顿时间。初始标记、重新标记阶段会stop the world<br>。采用了标记清除算法。<br>初始标记：仅标记GCRoots 能直接关联到的对象，速度快。<br>并发标记：沿着 关联对象继续搜索标记。<br>重新标记：修正因为用户操作发生引用变动的对象。<br>并发清理：删除垃圾对象。</p>
-<p>缺点：1、并发标记阶段，因为并发标记，降低了应用的吞吐量。<br>2、并发标记、并发请理阶段，有用户线程存在。产生浮动垃圾。<br>3、采用标记清除算法，产生大量内存碎片。</p>
-<h2 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h2><p>其他收集器要么只收集新生代，要么老年代。G1采用Mixed GC 混合收集。G1没有固定分代的区域划分，而是将堆内存划分成多个大小相等的区域Region,不同Region扮演Eden、或者老年代。除此之外，还有特殊的Humongous区域专门存储大对象。</p>
-<p>G1关注停顿时间，使用-XX：MaxGCPauseMillis来配置想要的停顿时间</p>
-<p><img src="https://img-blog.csdnimg.cn/20200721153916883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>初始标记：只标记GCROOTS直接关联的对象。<br>并发标记：进行可达性分析，找到要回收的对象。<br>最终标记：<br>筛选回收：对各个Region的回收价值和成本进行排序，根据期望的停顿时间制定回收策略。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/JVM/">JVM</a>
-    </div>
-
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
+    </script>
 
 </div>
       <footer id="footer">
