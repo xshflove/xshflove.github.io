@@ -233,6 +233,65 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-nginx配置Https 访问cxf webservice修改soap location仍是http问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2021/06/29/nginx%E9%85%8D%E7%BD%AEHttps%20%E8%AE%BF%E9%97%AEcxf%20webservice%E4%BF%AE%E6%94%B9soap%20location%E4%BB%8D%E6%98%AFhttp%E9%97%AE%E9%A2%98/" class="article-date">
+      <time datetime="2021-06-29T02:55:51.890Z" itemprop="datePublished">2021-06-29</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2021/06/29/nginx%E9%85%8D%E7%BD%AEHttps%20%E8%AE%BF%E9%97%AEcxf%20webservice%E4%BF%AE%E6%94%B9soap%20location%E4%BB%8D%E6%98%AFhttp%E9%97%AE%E9%A2%98/">nginx配置Https 访问cxf webservice修改soap location仍是http问题</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>首先是通过cxf框架发布的webservice服务。后续要使其支持https,所以在nginx上部署证书监听443端口，然后转发至实际的webservice服务。</p>
+<p><img src="https://img-blog.csdnimg.cn/2021062910335091.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到访问wsdl已经受到https保护，而soap address location却仍然是http。会导致请求方通过https访问wsdl后又把请求发给http。<br><img src="https://img-blog.csdnimg.cn/20210629102935898.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>解决：配置publishedEndpointUrl<br><img src="https://img-blog.csdnimg.cn/20210629103619295.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到wsdl上地址已经修改为https<br><img src="https://img-blog.csdnimg.cn/20210629104015394.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-springboot+shiro+springsession解决分布式session" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -835,92 +894,6 @@
     <div class="article-info article-info-index">
       
       
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-JVM（二）垃圾收集" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/" class="article-date">
-      <time datetime="2020-07-21T08:57:03.937Z" itemprop="datePublished">2020-07-21</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/07/21/JVM%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86/">JVM（二）垃圾收集</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h1 id="判断是否垃圾"><a href="#判断是否垃圾" class="headerlink" title="判断是否垃圾"></a>判断是否垃圾</h1><h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><p>通过添加一个引用计数器，引用了加1，引用失效减1。引用计数为0则判断为垃圾。但无法收集循环引用的对象。所以一般不采用此方式。</p>
-<h2 id="可达性分析"><a href="#可达性分析" class="headerlink" title="可达性分析"></a>可达性分析</h2><p>通过一系列称为GCRoots的根对象，根据引用向下搜索。如果对象没有可达的GCRoots则标记为垃圾。</p>
-<p>可作为GCRoots的对象：<br>1、虚拟机栈栈帧中局部变量表里的变量。<br>2、java类中静态变量。<br>3、常量池中的引用。<br>4、类加载器<br>5、synchronized关键字持有的对象。</p>
-<h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2><p>强引用：Object j = new Object();这种赋值就是强引用。垃圾收集器永远不会回收强引用对象，即使发生OOM。<br>软引用：软引用对象会在系统发生内存溢出之前，进行回收。<br>弱引用：下次发生垃圾收集就进行回收。<br>虚引用</p>
-<h2 id="finalize（）拯救对象"><a href="#finalize（）拯救对象" class="headerlink" title="finalize（）拯救对象"></a>finalize（）拯救对象</h2><p>判断对象是否进行垃圾回收会经过两次标记。一次是GCRoots的可达性分析。一次是是否执行对象的finalize(),并且重新获得引用。</p>
-<p>假如对象没有重写finalize()，或者finalize()已经执行过了，finalize()在系统中只会执行一次。都不会执行该方法。</p>
-<h2 id="方法区的回收"><a href="#方法区的回收" class="headerlink" title="方法区的回收"></a>方法区的回收</h2><p>判断一个类信息是否要进行回收需要同时满足以下条件：<br>1、该类所有实例都已经进行回收。<br>2、加载该类的类加载器已经进行回收。<br>3、该类的class对象没有任何地方引用比如反射</p>
-<h1 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h1><h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><p>算法分为标记、清除两个阶段。利用可达性分析，判断对象是否是垃圾，然后将标记为垃圾的对象清除。</p>
-<p>缺点：1、对象较多时，标记时间长。<br>2、清除操作带来了大量内存碎片。可能引起更频繁的gc.<br><img src="https://img-blog.csdnimg.cn/2020072114535544.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="标记复制"><a href="#标记复制" class="headerlink" title="标记复制"></a>标记复制</h2><p>将内存分为两块。一块用于存放，一块用于待命。首先进行标记垃圾，然后执行清除操作，再将存活对象按序放进待命的内存。这样解决了大量内存碎片的缺点。但是此方法的内存利用率只有一半，不高。<br><img src="https://img-blog.csdnimg.cn/20200721145414473.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="标记整理"><a href="#标记整理" class="headerlink" title="标记整理"></a>标记整理</h2><p>主要面向老年代。先进行标记操作，然后将存活对象都向内存空间的一端进行移动，清除掉存活边界以外的内存。</p>
-<h1 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h1><p><img src="https://img-blog.csdnimg.cn/20200721150015170.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h2><p>![在这里插入图片<img src="https://img-blog.csdnimg.cn/20200721150411274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>当GC线程执行时暂停应用程序线程，也就是stop the world。只有一个线程负责垃圾回收。</p>
-<p>在内存资源受限或者单核处理器下，serialGC由于没有线程交互的开销，有较高的处理效率。</p>
-<h2 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h2><p>ParNew 是Serial GC 的多线程版本。GC时有多个线程执行。用的标记复制算法。</p>
-<h2 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h2><p>与ParNew收集器很相似。Parallel Scavenge 更关注程序的吞吐量。</p>
-<p>吞吐量= 执行用户代码的时间 / （执行用户代码的时间 + 执行垃圾收集的时间）</p>
-<h2 id="SerialOld-收集器"><a href="#SerialOld-收集器" class="headerlink" title="SerialOld 收集器"></a>SerialOld 收集器</h2><p>Serial Old 是Serial 的老年代版本。</p>
-<h2 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h2><p>是Parallel Scavenge的老年代版本<br>关注吞吐量，可以和Parallel Scavenge配合使用。</p>
-<h2 id="CMS-收集器"><a href="#CMS-收集器" class="headerlink" title="CMS 收集器"></a>CMS 收集器</h2><p><img src="https://img-blog.csdnimg.cn/2020072115201178.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>CMS关注垃圾回收的停顿时间。初始标记、重新标记阶段会stop the world<br>。采用了标记清除算法。<br>初始标记：仅标记GCRoots 能直接关联到的对象，速度快。<br>并发标记：沿着 关联对象继续搜索标记。<br>重新标记：修正因为用户操作发生引用变动的对象。<br>并发清理：删除垃圾对象。</p>
-<p>缺点：1、并发标记阶段，因为并发标记，降低了应用的吞吐量。<br>2、并发标记、并发请理阶段，有用户线程存在。产生浮动垃圾。<br>3、采用标记清除算法，产生大量内存碎片。</p>
-<h2 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h2><p>其他收集器要么只收集新生代，要么老年代。G1采用Mixed GC 混合收集。G1没有固定分代的区域划分，而是将堆内存划分成多个大小相等的区域Region,不同Region扮演Eden、或者老年代。除此之外，还有特殊的Humongous区域专门存储大对象。</p>
-<p>G1关注停顿时间，使用-XX：MaxGCPauseMillis来配置想要的停顿时间</p>
-<p><img src="https://img-blog.csdnimg.cn/20200721153916883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>初始标记：只标记GCROOTS直接关联的对象。<br>并发标记：进行可达性分析，找到要回收的对象。<br>最终标记：<br>筛选回收：对各个Region的回收价值和成本进行排序，根据期望的停顿时间制定回收策略。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/JVM/">JVM</a>
-    </div>
-
 
       
       

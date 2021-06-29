@@ -7,24 +7,24 @@
   
   
   
-  <title>sychorzied锁升级过程 | 海安养猪场</title>
+  <title>nginx配置Https 访问cxf webservice修改soap location仍是http问题 | 海安养猪场</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="锁升级设计的目的主要为在没有多线程竞争的场景下，减少加锁带来的资源消耗。 java对象MarkWord首先分配在堆中的java对象由对象头、实例数据、对齐填充组成。在markword中存储锁相关的信息，是实现锁升级的关键。 无锁-&gt;偏向锁初始状态是无锁状态。当第一个线程进入同步代码块，markword中的锁标志会更新为01，并通过cas操作将当前线程存入markword中。当下次同一个线程再">
+  <meta name="description" content="首先是通过cxf框架发布的webservice服务。后续要使其支持https,所以在nginx上部署证书监听443端口，然后转发至实际的webservice服务。 可以看到访问wsdl已经受到https保护，而soap address location却仍然是http。会导致请求方通过https访问wsdl后又把请求发给http。解决：配置publishedEndpointUrl可以看到wsdl上">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sychorzied锁升级过程">
-<meta property="og:url" content="http://www.xshf1996.cn/2020/05/31/sychorzied%E9%94%81%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:title" content="nginx配置Https 访问cxf webservice修改soap location仍是http问题">
+<meta property="og:url" content="http://www.xshf1996.cn/2021/06/29/nginx%E9%85%8D%E7%BD%AEHttps%20%E8%AE%BF%E9%97%AEcxf%20webservice%E4%BF%AE%E6%94%B9soap%20location%E4%BB%8D%E6%98%AFhttp%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="海安养猪场">
-<meta property="og:description" content="锁升级设计的目的主要为在没有多线程竞争的场景下，减少加锁带来的资源消耗。 java对象MarkWord首先分配在堆中的java对象由对象头、实例数据、对齐填充组成。在markword中存储锁相关的信息，是实现锁升级的关键。 无锁-&gt;偏向锁初始状态是无锁状态。当第一个线程进入同步代码块，markword中的锁标志会更新为01，并通过cas操作将当前线程存入markword中。当下次同一个线程再">
+<meta property="og:description" content="首先是通过cxf框架发布的webservice服务。后续要使其支持https,所以在nginx上部署证书监听443端口，然后转发至实际的webservice服务。 可以看到访问wsdl已经受到https保护，而soap address location却仍然是http。会导致请求方通过https访问wsdl后又把请求发给http。解决：配置publishedEndpointUrl可以看到wsdl上">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200531142645887.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200531143057428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200531143959855.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200531144143879.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
-<meta property="article:published_time" content="2020-05-31T06:53:46.703Z">
-<meta property="article:modified_time" content="2020-05-31T06:53:46.740Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2021062910335091.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210629102935898.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210629103619295.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210629104015394.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2021-06-29T02:55:51.890Z">
+<meta property="article:modified_time" content="2021-06-29T02:55:52.020Z">
 <meta property="article:author" content="Mr.xu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200531142645887.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2021062910335091.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="海安养猪场" type="application/atom+xml">
   
@@ -237,11 +237,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-sychorzied锁升级过程" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-nginx配置Https 访问cxf webservice修改soap location仍是http问题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2020/05/31/sychorzied%E9%94%81%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/" class="article-date">
-      <time datetime="2020-05-31T06:53:46.703Z" itemprop="datePublished">2020-05-31</time>
+      <a  href="/2021/06/29/nginx%E9%85%8D%E7%BD%AEHttps%20%E8%AE%BF%E9%97%AEcxf%20webservice%E4%BF%AE%E6%94%B9soap%20location%E4%BB%8D%E6%98%AFhttp%E9%97%AE%E9%A2%98/" class="article-date">
+      <time datetime="2021-06-29T02:55:51.890Z" itemprop="datePublished">2021-06-29</time>
 </a>
 
     </div>
@@ -255,7 +255,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      sychorzied锁升级过程
+      nginx配置Https 访问cxf webservice修改soap location仍是http问题
     </h1>
   
 
@@ -264,10 +264,6 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
-    </div>
-
 
         
         <div class="clearfix"></div>
@@ -277,11 +273,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>锁升级设计的目的主要为在没有多线程竞争的场景下，减少加锁带来的资源消耗。</p>
-<h1 id="java对象MarkWord"><a href="#java对象MarkWord" class="headerlink" title="java对象MarkWord"></a>java对象MarkWord</h1><p>首先分配在堆中的java对象由对象头、实例数据、对齐填充组成。<br><img src="https://img-blog.csdnimg.cn/20200531142645887.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在markword中存储锁相关的信息，是实现锁升级的关键。<br><img src="https://img-blog.csdnimg.cn/20200531143057428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="无锁-gt-偏向锁"><a href="#无锁-gt-偏向锁" class="headerlink" title="无锁-&gt;偏向锁"></a>无锁-&gt;偏向锁</h1><p>初始状态是无锁状态。当第一个线程进入同步代码块，markword中的锁标志会更新为01，并通过cas操作将当前线程存入markword中。当下次同一个线程再次进入同步代码块，会比较markword中的线程id是否一致，若一致就不需要再次加锁。</p>
-<p>若是在必定发生多线程竞争的场景下，用参数-xx:-UseBiasedLocking来禁止偏向锁提示性能。</p>
-<h1 id="偏向锁-gt-轻量级锁"><a href="#偏向锁-gt-轻量级锁" class="headerlink" title="偏向锁-&gt;轻量级锁"></a>偏向锁-&gt;轻量级锁</h1><p>1、首先在当前线程的栈帧中创建锁记录LockRecord。<br>2、将markword拷贝到锁记录中，也就是加了displaced的位置。<br><img src="https://img-blog.csdnimg.cn/20200531143959855.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>3、将锁记录中的owner指向对象头。<br>4、将对象头指向锁记录中的markword复制<br><img src="https://img-blog.csdnimg.cn/20200531144143879.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+        <p>首先是通过cxf框架发布的webservice服务。后续要使其支持https,所以在nginx上部署证书监听443端口，然后转发至实际的webservice服务。</p>
+<p><img src="https://img-blog.csdnimg.cn/2021062910335091.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到访问wsdl已经受到https保护，而soap address location却仍然是http。会导致请求方通过https访问wsdl后又把请求发给http。<br><img src="https://img-blog.csdnimg.cn/20210629102935898.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>解决：配置publishedEndpointUrl<br><img src="https://img-blog.csdnimg.cn/20210629103619295.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到wsdl上地址已经修改为https<br><img src="https://img-blog.csdnimg.cn/20210629104015394.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwMzY1MzMx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
       
     </div>
@@ -290,13 +283,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2020/05/31/sychorzied%E9%94%81%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/">sychorzied锁升级过程</a></p>
+        <p><span>本文标题:</span><a  href="/2021/06/29/nginx%E9%85%8D%E7%BD%AEHttps%20%E8%AE%BF%E9%97%AEcxf%20webservice%E4%BF%AE%E6%94%B9soap%20location%E4%BB%8D%E6%98%AFhttp%E9%97%AE%E9%A2%98/">nginx配置Https 访问cxf webservice修改soap location仍是http问题</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 Mr.xu 的个人博客">Mr.xu</a></p>
-        <p><span>发布时间:</span>2020年05月31日 - 14时53分</p>
-        <p><span>最后更新:</span>2020年05月31日 - 14时53分</p>
+        <p><span>发布时间:</span>2021年06月29日 - 10时55分</p>
+        <p><span>最后更新:</span>2021年06月29日 - 10时55分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/05/31/sychorzied%E9%94%81%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/" title="sychorzied锁升级过程">http://www.xshf1996.cn/2020/05/31/sychorzied%E9%94%81%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2020/05/31/sychorzied%E9%94%81%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B/　　作者: Mr.xu" title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2021/06/29/nginx%E9%85%8D%E7%BD%AEHttps%20%E8%AE%BF%E9%97%AEcxf%20webservice%E4%BF%AE%E6%94%B9soap%20location%E4%BB%8D%E6%98%AFhttp%E9%97%AE%E9%A2%98/" title="nginx配置Https 访问cxf webservice修改soap location仍是http问题">http://www.xshf1996.cn/2021/06/29/nginx%E9%85%8D%E7%BD%AEHttps%20%E8%AE%BF%E9%97%AEcxf%20webservice%E4%BF%AE%E6%94%B9soap%20location%E4%BB%8D%E6%98%AFhttp%E9%97%AE%E9%A2%98/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.xshf1996.cn/2021/06/29/nginx%E9%85%8D%E7%BD%AEHttps%20%E8%AE%BF%E9%97%AEcxf%20webservice%E4%BF%AE%E6%94%B9soap%20location%E4%BB%8D%E6%98%AFhttp%E9%97%AE%E9%A2%98/　　作者: Mr.xu" title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -307,18 +300,9 @@
 
 <nav id="article-nav">
   
-    <a  href="/2020/06/08/JVM(%E4%B8%80)/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          JVM(一)
-        
-      </div>
-    </a>
   
-  
-    <a  href="/2020/05/28/%E5%A4%9A%E7%BA%BF%E7%A8%8B(%E4%BA%8C)%20volatile/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">多线程(二) volatile</div>
+    <a  href="/2021/06/28/springboot+shiro+springsession%E8%A7%A3%E5%86%B3%E5%88%86%E5%B8%83%E5%BC%8Fsession/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">springboot+shiro+springsession解决分布式session</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -330,7 +314,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#java对象MarkWord"><span class="toc-number">1.</span> <span class="toc-text">java对象MarkWord</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无锁-gt-偏向锁"><span class="toc-number">2.</span> <span class="toc-text">无锁-&gt;偏向锁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#偏向锁-gt-轻量级锁"><span class="toc-number">3.</span> <span class="toc-text">偏向锁-&gt;轻量级锁</span></a></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -403,13 +387,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2020/06/08/JVM(%E4%B8%80)/" title="上一篇: JVM(一)">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/2020/05/28/%E5%A4%9A%E7%BA%BF%E7%A8%8B(%E4%BA%8C)%20volatile/" title="下一篇: 多线程(二) volatile">
+            <a  href="/2021/06/28/springboot+shiro+springsession%E8%A7%A3%E5%86%B3%E5%88%86%E5%B8%83%E5%BC%8Fsession/" title="下一篇: springboot+shiro+springsession解决分布式session">
                 <i class="fa fa-angle-right"></i>
             </a>
         
